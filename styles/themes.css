@@ -1,0 +1,25 @@
+/* [Theme Name] (Default) */
+:root {
+	/* Variables go here... */
+	/*
+		Example:
+			--bg-color: #fffff;
+	*/
+}
+
+/* Theme 1 */
+[data-theme="theme-1"] {
+	/* Variables go here... */
+}
+
+/* Theme 2*/
+[data-theme="theme-2"] {
+	/* Variables go here... */
+}
+
+/* Theme 3 */
+[data-theme="theme-3"] {
+	/* Variables go here... */
+}
+
+/* etc... */

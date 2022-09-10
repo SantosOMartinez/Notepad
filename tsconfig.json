@@ -1,0 +1,41 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			// Atomic Design
+			"@components/*": ["common/components/*"],
+			"@layouts/*": ["common/layouts/*"],
+			"@modules/*": ["common/modules/*"],
+			"@templates/*": ["common/templates/*"],
+			"@pages/*": ["pages/*"],
+			// Application State
+			"@state/*": ["state/*"],
+			// Css
+			"@styles/*": ["styles/*"],
+			// Utilities
+			"@functions/*": ["util/functions/*"],
+			"@hooks/*": ["util/hooks/*"],
+			"@types/*": ["util/types/*"],
+			"@constants/*": ["util/constants/*"],
+			// Public
+			"@assets/*": ["public/assets/*"],
+			"@fonts/*": ["public/fonts/*"]
+		},
+		"target": "ESNext",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": false,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"incremental": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve"
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"]
+}
