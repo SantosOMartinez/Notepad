@@ -1,0 +1,32 @@
+{
+	"name": "nextjs-boilerplate",
+	"displayName": "Next.js Boilerplate",
+	"version": "1.0.0",
+	"description": "Boilerplate NextJS app containing the basic file structures.",
+	"main": "index.js",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"author": {
+		"name": "Santos O. Martínez Braña",
+		"email": "martinezsantos3@gmail.com",
+		"url": "https://github.com/SantosOMartinez"
+	},
+	"license": "UNLICENSED",
+	"dependencies": {
+		"classnames": "^2.3.1",
+		"next": "^12.3.0",
+		"normalize.css": "^8.0.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"recoil": "^0.7.5"
+	},
+	"devDependencies": {
+		"@types/node": "18.7.16",
+		"@types/react": "18.0.18",
+		"typescript": "4.8.3"
+	}
+}
