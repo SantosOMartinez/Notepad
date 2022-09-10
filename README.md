@@ -4,8 +4,12 @@ This boilerplate contains the base file structure used to make a complex NextJS 
 # Packages
 This projects starts out with some useful packages that might come in handy when developing any project.
 
-- [Recoil JS](https://recoiljs.org/) → State management library for React.
-- [Classnames](https://github.com/JedWatson/classnames) → A simple javascript utility for conditionally joining classNames together.
-- [Normalize.css](https://necolas.github.io/normalize.css/) → Modern alternative to CSS resets.
+- [Recoil JS][recoil] → State management library for React.
+- [Classnames][classnames] → A simple javascript utility for conditionally joining classNames together.
+- [Normalize.css][normalize] → Modern alternative to CSS resets.
 
 *Feel free to make any changes to the project as need be.*
+
+[recoil]: https://recoiljs.org/
+[classnames]: https://github.com/JedWatson/classnames
+[normalize]: https://necolas.github.io/normalize.css/
