@@ -1,3 +1,6 @@
-/* Organize all global styles here.*/
+/* Organize all global styles here. */
 
 @import "themes.css";
+@import "fonts.css";
+@import "typography.css";
+@import "types.css";

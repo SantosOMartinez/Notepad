@@ -1,5 +1,5 @@
-import "@styles/globals.css";
 import "normalize.css/normalize.css";
+import "@styles/globals.css";
 
 import { RecoilRoot } from "recoil";
 

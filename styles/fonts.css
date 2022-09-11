@@ -1,0 +1,10 @@
+/* Fonts are defined here. */
+
+@font-face {
+	font-family: "Font name goes here...";
+	src: url("URI to font here...") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Define more fonts down here... */
