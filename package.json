@@ -8,7 +8,9 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"analyze": "ANALYZE=true npm run build",
+		"analyze-windows": "set ANALYZE=true&& npm run build"
 	},
 	"author": {
 		"name": "Santos O. Martínez Braña",
@@ -17,6 +19,7 @@
 	},
 	"license": "UNLICENSED",
 	"dependencies": {
+		"@next/bundle-analyzer": "^12.3.0",
 		"classnames": "^2.3.1",
 		"next": "^12.3.0",
 		"normalize.css": "^8.0.1",
