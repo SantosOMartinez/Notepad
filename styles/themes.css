@@ -1,25 +1,42 @@
-/* [Theme Name] (Default) */
+/* Light (Default) */
 :root {
-	/* Variables go here... */
-	/*
-		Example:
-			--bg-color: #fffff;
-	*/
+	--bg: var(--neutral-10);
+	--accent: var(--primary-1);
+	--editor: var(--neutral-10);
+	--view: var(--neutral-10);
+	--toolbar: var(--neutral-10);
+	--text: var(--neutral-3);
+	--title: var(--neutral-2);
+	--subtitle: var(--neutral-5);
+	--icon: var(--neutral-5);
+	--hover-bg: var(--neutral-9);
+	--hover-icon: var(--neutral-3);
 }
 
-/* Theme 1 */
-[data-theme="theme-1"] {
-	/* Variables go here... */
+/* Light */
+[data-theme="light"] {
+	--bg: var(--neutral-10);
+	--accent: var(--primary-1);
+	--editor: var(--neutral-10);
+	--toolbar: var(--neutral-10);
+	--text: var(--neutral-3);
+	--title: var(--neutral-2);
+	--subtitle: var(--neutral-5);
+	--icon: var(--neutral-5);
+	--hover-bg: var(--neutral-9);
+	--hover-icon: var(--neutral-3);
 }
 
-/* Theme 2*/
-[data-theme="theme-2"] {
-	/* Variables go here... */
+/* Dark */
+[data-theme="dark"] {
+	--bg: var(--neutral-2);
+	--accent: var(--primary-1);
+	--editor: var(--neutral-1);
+	--toolbar: var(--neutral-2);
+	--text: var(--neutral-8);
+	--title: var(--neutral-9);
+	--subtitle: var(--neutral-6);
+	--icon: var(--neutral-6);
+	--hover-bg: rgba(var(--neutral-3), 0.25);
+	--hover-icon: var(--neutral-7);
 }
-
-/* Theme 3 */
-[data-theme="theme-3"] {
-	/* Variables go here... */
-}
-
-/* etc... */

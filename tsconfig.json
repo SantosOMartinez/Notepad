@@ -15,7 +15,7 @@
 			// Utilities
 			"@functions/*": ["util/functions/*"],
 			"@hooks/*": ["util/hooks/*"],
-			"@types/*": ["util/types/*"],
+			"@type/*": ["util/types/*"],
 			"@constants/*": ["util/constants/*"],
 			// Public
 			"@assets/*": ["public/assets/*"],

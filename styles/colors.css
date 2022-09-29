@@ -1,0 +1,24 @@
+:root {
+	/* Neutral */
+	--neutral-1: #1e1e1e;
+	--neutral-2: #231e29;
+	--neutral-3: #343a40;
+	--neutral-4: #495057;
+	--neutral-5: #6c757d;
+	--neutral-6: #adb5bd;
+	--neutral-7: #ced4da;
+	--neutral-8: #e9ecef;
+	--neutral-9: #f6f7f9;
+	--neutral-10: #ffffff;
+
+	/* Primary */
+	--primary-1: #007aff;
+	--primary-3: #ec6a5e;
+	--primary-2: #f4bf4f;
+	--primary-4: #61c654;
+
+	/* Traffic */
+	--traffic-1: #c05547;
+	--traffic-2: #cea251;
+	--traffic-3: #67a44d;
+}

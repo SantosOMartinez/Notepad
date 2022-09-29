@@ -1,8 +1,8 @@
 {
-	"name": "nextjs-boilerplate",
-	"displayName": "Next.js Boilerplate",
-	"version": "1.0.0",
-	"description": "Boilerplate NextJS app containing the basic file structures.",
+	"name": "notepad",
+	"displayName": "Notepad",
+	"version": "0.0.0",
+	"description": "Apple Notepad recreation on the web.",
 	"main": "index.js",
 	"scripts": {
 		"dev": "next dev",
