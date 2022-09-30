@@ -21,7 +21,9 @@ export default ({ suggestions = [], visible, onClick = () => {} }: Props) => {
 	return (
 		<span
 			className={cn(styles.suggestions, { [styles.visible]: visible })}
-			onClick={(e) => e.stopPropagation()}
+			onClick={(e) => {
+				e.stopPropagation();
+			}}
 		>
 			<p className={styles.title}>Suggested Searches</p>
 			<span className={styles.scrollbar}>

@@ -1,11 +1,5 @@
 import cn from "classnames";
-import {
-    ChangeEvent,
-    FocusEvent,
-    KeyboardEvent,
-    useRef,
-    useState
-} from "react";
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 
 import Icon from "@components/Icon";
 import useOutsideClick from "@hooks/onOutsideClick";
@@ -49,14 +43,11 @@ export default ({
 
 	useUpdateEffect(() => onFilter(suggestion), [suggestion]);
 
-	const ref = useRef<HTMLLabelElement>(null);
+	const ref = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const tagRef = useRef<HTMLButtonElement>(null);
 
 	useOutsideClick(ref, () => setVisible(false));
-
-	const handleBlur = (e: FocusEvent<HTMLLabelElement>) =>
-		!e.currentTarget.contains(e.relatedTarget) && setVisible(false);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const text = e.target.value;
@@ -74,7 +65,7 @@ export default ({
 			tagRef.current.focus();
 	};
 
-	const handleEscapeKey = (e: KeyboardEvent<HTMLLabelElement>) => {
+	const handleEscapeKey = (e: KeyboardEvent<HTMLDivElement>) => {
 		if (e.key !== keys.esc) return;
 
 		inputRef.current.value = "";
@@ -94,20 +85,29 @@ export default ({
 
 		if (key === keys.right || key === keys.up || key === keys.down) {
 			inputRef.current.focus();
+			return;
 		}
+
+		inputRef.current.focus();
+		inputRef.current.setSelectionRange(0, 0);
+		setSuggestion(undefined);
 	};
 
 	return (
-		<label
+		<div
 			className={styles.wrapper}
 			ref={ref}
-			onFocus={() => setVisible(true)}
-			onClick={() => inputRef.current.focus()}
-			onMouseDown={(e) => e.preventDefault()} //TODO: Fix events to allow cursor text selection.
-			onBlur={handleBlur}
+			onFocus={(e) =>
+				suggestion === undefined &&
+				!inputRef.current.value &&
+				setVisible(true)
+			}
+			onClick={(e) => {
+				inputRef.current.focus();
+			}}
 			onKeyDown={handleEscapeKey}
 		>
-			<label
+			<div
 				className={cn(styles.search, {
 					[styles.visible]: visible,
 					[styles.tagged]: true,
@@ -116,7 +116,7 @@ export default ({
 				<Icon icon="search" />
 				{suggestion != null && (
 					<button
-						className={cn(styles.suggestion, "caption")}
+						className={cn(styles.tag, "caption")}
 						ref={tagRef}
 						onKeyDown={handleSuggestion}
 						onClick={(e) => {
@@ -133,7 +133,7 @@ export default ({
 					onChange={handleChange}
 					onKeyDown={handleKeyDown}
 				/>
-			</label>
+			</div>
 			<Suggestions
 				suggestions={suggestions}
 				visible={visible && suggestion === undefined}
@@ -142,6 +142,6 @@ export default ({
 					setSuggestion(selected);
 				}}
 			/>
-		</label>
+		</div>
 	);
 };
