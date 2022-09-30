@@ -1,0 +1,83 @@
+.suggestions {
+	user-select: none;
+	position: absolute;
+	display: grid;
+	grid-template-rows: max-content 1fr;
+	background-image: var(--glass);
+	box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.12);
+	backdrop-filter: blur(0.5rem);
+	min-width: 100%;
+	min-height: 3rem;
+	max-width: max(25vw, 12.5rem);
+	max-height: 50vh;
+	padding: 0.75rem 1rem;
+	border-radius: 0.5rem;
+	margin-top: 0.125rem;
+	border: 0.063rem solid var(--divider);
+
+	/* Rules to hide dropdown */
+	opacity: 0;
+	pointer-events: none;
+}
+
+.visible {
+	opacity: 1;
+	transition: var(--transition);
+	pointer-events: auto;
+}
+
+.title {
+	color: var(--subtitle);
+	opacity: 0.75;
+	margin-left: 0.25rem;
+	margin-bottom: 0.5rem;
+	font-size: 12px;
+}
+
+.scrollbar {
+	overflow-y: auto;
+	overflow-x: hidden;
+	overscroll-behavior: contain;
+}
+
+.suggestion {
+	display: grid;
+	align-items: center;
+	justify-items: flex-start;
+	grid-template-columns: max-content 1fr;
+	column-gap: 0.5rem;
+	padding: 0.25rem;
+	border-radius: 0.25rem;
+	background: none;
+	border: none;
+	outline: none;
+	width: 100%;
+}
+
+.suggestion:hover,
+.suggestion:focus {
+	background-color: var(--primary-1);
+}
+
+.suggestion > svg {
+	fill: var(--subtitle);
+	height: 0.875rem;
+	width: 0.875rem;
+	min-height: 0.875rem;
+	min-width: 0.875rem;
+}
+
+.suggestion:hover > svg,
+.suggestion:focus > svg {
+	fill: var(--neutral-9);
+}
+
+.suggestion > p {
+	color: var(--text);
+	font-size: 12px;
+}
+
+.suggestion:hover > p,
+.suggestion:focus > p {
+	color: var(--neutral-9);
+}

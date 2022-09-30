@@ -11,6 +11,13 @@
 	--icon: var(--neutral-5);
 	--hover-bg: var(--neutral-9);
 	--hover-icon: var(--neutral-3);
+	--hover-bg-select: var(--neutral-8);
+	--divider: var(--neutral-8);
+	--glass: linear-gradient(
+		115.93deg,
+		rgba(233, 236, 239, 0.25) 0%,
+		rgba(233, 236, 239, 0.25) 100%
+	);
 }
 
 /* Light */
@@ -25,6 +32,13 @@
 	--icon: var(--neutral-5);
 	--hover-bg: var(--neutral-9);
 	--hover-icon: var(--neutral-3);
+	--hover-bg-select: var(--neutral-8);
+	--divider: var(--neutral-8);
+	--glass: linear-gradient(
+		115.93deg,
+		rgba(233, 236, 239, 0.25) 0%,
+		rgba(233, 236, 239, 0.25) 100%
+	);
 }
 
 /* Dark */
@@ -39,4 +53,11 @@
 	--icon: var(--neutral-6);
 	--hover-bg: rgba(var(--neutral-3), 0.25);
 	--hover-icon: var(--neutral-7);
+	--hover-bg-select: var(--neutral-2);
+	--divider: rgba(var(--neutral-3), 0.25);
+	--glass: linear-gradient(
+		157.32deg,
+		rgba(35, 30, 41, 0.5) 44.12%,
+		rgba(30, 30, 30, 0.25) 128.34%
+	);
 }

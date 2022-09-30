@@ -1,3 +1,8 @@
 /* Fonts are defined here. */
 
+html {
+	/* Base size for rem unit */
+	font-size: 18px; /* Default: 16px */
+}
+
 @import "fonts/inter.css";

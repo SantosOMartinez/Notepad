@@ -1,14 +1,19 @@
-import { HtmlHTMLAttributes } from "react";
+import cn from "classnames";
+import { ButtonHTMLAttributes } from "react";
 
 import Icon from "@components/Icon";
 import { IconName } from "@type/icons";
 
-interface Props extends HtmlHTMLAttributes<HTMLButtonElement> {
+import styles from "./button.module.css";
+
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	icon: IconName;
+	dropDown?: boolean;
 }
 
-export default ({ icon, ...props }: Props) => (
-	<button {...props}>
+export default ({ icon, dropDown, className, ...props }: Props) => (
+	<button {...props} className={cn(styles.button, className)}>
 		<Icon icon={icon} />
+		{dropDown && <Icon icon="chevron-down" className={styles.icon} />}
 	</button>
 );
