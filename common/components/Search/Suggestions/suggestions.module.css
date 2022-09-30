@@ -1,6 +1,7 @@
 .suggestions {
 	user-select: none;
 	position: absolute;
+	right: 0;
 	display: grid;
 	grid-template-rows: max-content 1fr;
 	background-image: var(--glass);

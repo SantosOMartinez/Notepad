@@ -4,9 +4,10 @@ import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import Icon from "@components/Icon";
 import useOutsideClick from "@hooks/onOutsideClick";
 import useUpdateEffect from "@hooks/useUpdateEffect";
+import { Suggestion } from "@type/search";
 
 import styles from "./search.module.css";
-import Suggestions, { Suggestion } from "./Suggestions";
+import Suggestions from "./Suggestions";
 
 const keys = {
 	backspace: "Backspace",
@@ -110,7 +111,6 @@ export default ({
 			<div
 				className={cn(styles.search, {
 					[styles.visible]: visible,
-					[styles.tagged]: true,
 				})}
 			>
 				<Icon icon="search" />

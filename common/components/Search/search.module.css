@@ -22,10 +22,6 @@
 	margin: 0;
 }
 
-.tagged {
-	grid-template-columns: max-content max-content 1fr;
-}
-
 .tag {
 	border: none;
 	outline: none;

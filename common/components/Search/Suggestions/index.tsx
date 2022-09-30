@@ -1,15 +1,9 @@
 import cn from "classnames";
 
 import Icon from "@components/Icon";
-import { IconName } from "@type/icons";
+import { Suggestion } from "@type/search";
 
 import styles from "./suggestions.module.css";
-
-export interface Suggestion {
-	icon: IconName;
-	name: string;
-	tag: string;
-}
 
 interface Props {
 	suggestions?: Suggestion[];

@@ -1,0 +1,38 @@
+.toolbar {
+	display: grid;
+	column-gap: 0.24rem;
+	width: 100%;
+	grid-template-columns: max-content max-content 1fr;
+	transition: calc(2 * var(--transition));
+
+	height: 50px;
+}
+
+.toolbar:hover {
+	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
+	transition-delay: var(--transition);
+}
+
+.left,
+.right {
+	display: flex;
+	column-gap: 0.25rem;
+	align-items: center;
+	padding-bottom: 0.25rem;
+}
+
+.left {
+	width: var(--sidebar-size);
+	padding-left: 1rem;
+}
+
+.divider {
+	width: 1px;
+	background-color: var(--divider);
+	height: 100%;
+	margin: 0 0.5rem;
+}
+
+.right {
+	padding-right: 0.5rem;
+}
