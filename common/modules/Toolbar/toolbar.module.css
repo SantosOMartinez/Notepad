@@ -1,10 +1,8 @@
 .toolbar {
 	display: grid;
-	column-gap: 0.24rem;
 	width: 100%;
 	grid-template-columns: max-content max-content 1fr;
 	transition: calc(2 * var(--transition));
-
 	height: 50px;
 }
 
@@ -24,13 +22,6 @@
 .left {
 	width: var(--sidebar-size);
 	padding-left: 1rem;
-}
-
-.divider {
-	width: 1px;
-	background-color: var(--divider);
-	height: 100%;
-	margin: 0 0.5rem;
 }
 
 .right {

@@ -1,5 +1,6 @@
 interface Props {}
 import Button from "@components/Button";
+import Divider from "@components/Divider";
 import Multiselect from "@components/Multiselect";
 import Search from "@components/Search";
 import Spacer from "@components/Spacer";
@@ -20,7 +21,7 @@ export default ({}: Props) => {
 				<Spacer flexible />
 				<Button icon="trash" />
 			</section>
-			<div className={styles.divider} />
+			<Divider horizontal />
 			<section className={styles.right}>
 				<Button icon="note" />
 				<Spacer flexible />
