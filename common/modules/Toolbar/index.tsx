@@ -1,14 +1,22 @@
 interface Props {}
+import { MutableRefObject, useRef } from "react";
+
 import Button from "@components/Button";
 import Divider from "@components/Divider";
 import Multiselect from "@components/Multiselect";
 import Search from "@components/Search";
 import Spacer from "@components/Spacer";
+import { sidebarId } from "@constants/css";
 import { suggestions } from "@constants/text";
+import useResize from "@hooks/useResize";
 
 import styles from "./toolbar.module.css";
 
 export default ({}: Props) => {
+	const ref = useRef<HTMLElement>(null);
+
+	const move = useResize(sidebarId, ref);
+
 	return (
 		<nav className={styles.toolbar}>
 			<section className={styles.left}>
@@ -21,8 +29,8 @@ export default ({}: Props) => {
 				<Spacer flexible />
 				<Button icon="trash" />
 			</section>
-			<Divider horizontal />
-			<section className={styles.right}>
+			<Divider horizontal draggable onChange={(delta) => move(delta)} />
+			<section className={styles.right} ref={ref}>
 				<Button icon="note" />
 				<Spacer flexible />
 				<Button icon="format" />

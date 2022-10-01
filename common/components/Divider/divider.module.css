@@ -32,3 +32,7 @@
 	width: 10px;
 	cursor: col-resize;
 }
+
+.cursor * {
+	cursor: col-resize;
+}

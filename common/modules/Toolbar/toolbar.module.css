@@ -22,8 +22,12 @@
 .left {
 	width: var(--sidebar-size);
 	padding-left: 1rem;
+	min-width: 200px;
 }
 
 .right {
 	padding-right: 0.5rem;
+	min-width: 475px;
 }
+
+/* TODO: Handle smaller layouts. */

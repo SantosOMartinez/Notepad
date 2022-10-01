@@ -1,10 +1,21 @@
 import cn from "classnames";
-import { useEffect, useRef } from "react";
+import { MouseEvent as ReactMouseEvent, useEffect, useRef } from "react";
 
 import styles from "./divider.module.css";
 
-const controlCursor = () => (document.documentElement.style.cursor = "pointer");
-const freeCursor = () => (document.documentElement.style.cursor = "auto");
+const controlCursor = () => {
+	document.body.classList.add(styles.cursor);
+	document.onselectstart = () => false;
+};
+const freeCursor = () => {
+	document.body.classList.remove(styles.cursor);
+	document.onselectstart = () => true;
+};
+
+const getDelta = (previous: number | null, current: number | null) => {
+	if (previous === null || current == null) return 0;
+	return current - previous;
+};
 
 interface Props {
 	/**
@@ -15,11 +26,23 @@ interface Props {
 	 * Add padding to the verticalaxis.
 	 */
 	vertical?: boolean;
+
+	/**
+	 * Optain the mouse's X axis delta.
+	 */
+	onChange?: (delta: number) => void;
+	draggable?: boolean;
 }
 
-export default ({ horizontal, vertical }: Props) => {
+export default ({
+	horizontal,
+	vertical,
+	draggable,
+	onChange = () => {},
+}: Props) => {
 	const ref = useRef<HTMLSpanElement>(null);
 	const isDragging = useRef(false);
+	const x = useRef<number>(null);
 
 	const onEnd = () => {
 		freeCursor();
@@ -27,10 +50,21 @@ export default ({ horizontal, vertical }: Props) => {
 		document.removeEventListener("mouseup", onEnd);
 	};
 
-	const onMove = (e: MouseEvent) =>
-		isDragging.current && console.log("dragging");
+	const onMove = (e: MouseEvent) => {
+		if (!isDragging.current) return;
 
-	const onStart = () => {
+		if (isDragging.current && !draggable) {
+			isDragging.current = false;
+			return;
+		}
+
+		const delta = getDelta(x.current, e.clientX);
+		onChange(delta);
+		x.current = e.clientX;
+	};
+
+	const onStart = (e: ReactMouseEvent) => {
+		x.current = e.clientX;
 		controlCursor();
 		isDragging.current = true;
 		document.addEventListener("mouseup", onEnd);
@@ -51,11 +85,13 @@ export default ({ horizontal, vertical }: Props) => {
 				[styles.horizontal]: horizontal,
 			})}
 		>
-			<span
-				className={styles.slider}
-				ref={ref}
-				onMouseDown={onStart}
-			></span>
+			{draggable && (
+				<span
+					className={styles.slider}
+					ref={ref}
+					onMouseDown={onStart}
+				/>
+			)}
 		</div>
 	);
 };
