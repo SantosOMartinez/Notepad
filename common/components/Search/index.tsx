@@ -40,6 +40,7 @@ export default ({
 	onFilter = () => {},
 }: Props) => {
 	const [visible, setVisible] = useState(false);
+	const [focused, setFocused] = useState(false);
 	const [suggestion, setSuggestion] = useState<number>();
 
 	useUpdateEffect(() => onFilter(suggestion), [suggestion]);
@@ -48,7 +49,11 @@ export default ({
 	const inputRef = useRef<HTMLInputElement>(null);
 	const tagRef = useRef<HTMLButtonElement>(null);
 
-	useOutsideClick(ref, () => setVisible(false));
+	useOutsideClick(ref, () => {
+		setVisible(false);
+		setFocused(false);
+		inputRef.current.blur();
+	});
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const text = e.target.value;
@@ -96,15 +101,16 @@ export default ({
 
 	return (
 		<div
-			className={styles.wrapper}
+			className={cn(styles.wrapper, { [styles.focused]: focused })}
 			ref={ref}
-			onFocus={(e) =>
+			onFocus={() =>
 				suggestion === undefined &&
 				!inputRef.current.value &&
 				setVisible(true)
 			}
-			onClick={(e) => {
+			onClick={() => {
 				inputRef.current.focus();
+				setFocused(true);
 			}}
 			onKeyDown={handleEscapeKey}
 		>
@@ -122,6 +128,7 @@ export default ({
 						onClick={(e) => {
 							e.currentTarget.focus();
 							e.stopPropagation();
+							setFocused(true);
 						}}
 					>
 						{suggestions[suggestion].tag}
@@ -132,6 +139,7 @@ export default ({
 					ref={inputRef}
 					onChange={handleChange}
 					onKeyDown={handleKeyDown}
+					onFocus={() => setFocused(true)}
 				/>
 			</div>
 			<Suggestions

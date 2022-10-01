@@ -1,13 +1,14 @@
 .wrapper {
 	flex-grow: 1;
-	max-width: 13rem;
+	max-width: min(13rem, 100%);
 	position: relative;
+	min-width: 0.72rem;
 }
 
 .search {
 	display: flex;
 	align-items: center;
-	grid-template-columns: max-content 1fr;
+	grid-template-columns: max-content max-content 1fr;
 	height: 1.25rem;
 	padding: 0.125rem 0.25rem;
 	column-gap: 0.25rem;
@@ -17,9 +18,14 @@
 }
 
 .visible,
-.search:focus-within {
+.focused .search {
 	border: 2px solid var(--primary-1);
 	margin: 0;
+}
+
+.focused {
+	width: 13rem;
+	min-width: min(13rem, 100%);
 }
 
 .tag {
@@ -53,6 +59,7 @@
 	border: none;
 	outline: none;
 	color: var(--text);
+	overflow: hidden;
 }
 
 .search input::-webkit-input-placeholder {

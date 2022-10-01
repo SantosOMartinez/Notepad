@@ -1,0 +1,57 @@
+.wrapper {
+	position: relative;
+}
+
+.head {
+}
+
+.body {
+	position: absolute;
+	width: max-content;
+	min-width: 100%;
+	height: max-content;
+
+	/* Rules to hide dropdown */
+	opacity: 0;
+	pointer-events: none;
+
+	margin-top: 0.125rem;
+}
+
+.open {
+	opacity: 1;
+	transition: var(--transition);
+	pointer-events: auto;
+}
+
+.top,
+.bottom,
+.left,
+.right {
+	margin: 0;
+
+	top: unset;
+	bottom: unset;
+	left: unset;
+	right: unset;
+}
+
+.top {
+	margin-top: 0.125rem;
+	top: 0;
+}
+
+.bottom {
+	margin-top: 0.125rem;
+	bottom: 0;
+}
+
+.left {
+	margin-top: 0.125rem;
+	left: 0;
+}
+
+.right {
+	margin-top: 0.125rem;
+	right: 0;
+}

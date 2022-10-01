@@ -1,8 +1,8 @@
 .toolbar {
 	display: grid;
 	width: 100%;
-	grid-template-columns: max-content max-content 1fr;
-	transition: calc(2 * var(--transition));
+	grid-template-columns: 1fr 28px 4fr;
+	transition: box-shadow calc(2 * var(--transition));
 	height: 50px;
 }
 
@@ -20,14 +20,13 @@
 }
 
 .left {
-	width: var(--sidebar-size);
 	padding-left: 1rem;
-	min-width: 200px;
+	min-width: max-content;
 }
 
 .right {
 	padding-right: 0.5rem;
-	min-width: 475px;
+	min-width: min-content;
 }
 
 /* TODO: Handle smaller layouts. */

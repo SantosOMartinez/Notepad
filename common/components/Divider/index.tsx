@@ -26,72 +26,16 @@ interface Props {
 	 * Add padding to the verticalaxis.
 	 */
 	vertical?: boolean;
-
-	/**
-	 * Optain the mouse's X axis delta.
-	 */
-	onChange?: (delta: number) => void;
-	draggable?: boolean;
 }
 
-export default ({
-	horizontal,
-	vertical,
-	draggable,
-	onChange = () => {},
-}: Props) => {
-	const ref = useRef<HTMLSpanElement>(null);
-	const isDragging = useRef(false);
-	const x = useRef<number>(null);
-
-	const onEnd = () => {
-		freeCursor();
-		isDragging.current = false;
-		document.removeEventListener("mouseup", onEnd);
-	};
-
-	const onMove = (e: MouseEvent) => {
-		if (!isDragging.current) return;
-
-		if (isDragging.current && !draggable) {
-			isDragging.current = false;
-			return;
-		}
-
-		const delta = getDelta(x.current, e.clientX);
-		onChange(delta);
-		x.current = e.clientX;
-	};
-
-	const onStart = (e: ReactMouseEvent) => {
-		x.current = e.clientX;
-		controlCursor();
-		isDragging.current = true;
-		document.addEventListener("mouseup", onEnd);
-	};
-
-	useEffect(() => {
-		document.addEventListener("mousemove", onMove);
-		return () => {
-			document.removeEventListener("mousemove", onMove);
-			document.removeEventListener("mouseup", onEnd);
-		};
-	}, []);
-
+export default ({ horizontal, vertical, ...props }: Props) => {
 	return (
 		<div
+			{...props}
 			className={cn(styles.divider, {
 				[styles.vertical]: vertical,
 				[styles.horizontal]: horizontal,
 			})}
-		>
-			{draggable && (
-				<span
-					className={styles.slider}
-					ref={ref}
-					onMouseDown={onStart}
-				/>
-			)}
-		</div>
+		/>
 	);
 };
