@@ -1,17 +1,12 @@
-import Toolbar from "@modules/Toolbar";
+import Layout from "@layouts/Layout";
 
 export default () => {
 	return (
 		<main>
-			<Toolbar />
+			<Layout></Layout>
 			<style jsx>{`
 				main {
 					height: 100vh;
-					display: grid;
-				}
-				div {
-					display: flex;
-					width: 100%;
 				}
 			`}</style>
 		</main>
