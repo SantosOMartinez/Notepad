@@ -1,9 +1,12 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, useState } from "react";
 
 import Button from "@components/Button";
+import Dropdown from "@components/Dropdown";
+import ModalCard from "@components/ModalCard";
 import Multiselect from "@components/Multiselect";
 import Search from "@components/Search";
 import Spacer from "@components/Spacer";
+import Wrap from "@components/Wrap";
 import { suggestions } from "@constants/text";
 
 import styles from "./toolbar.module.css";
@@ -23,19 +26,34 @@ export const Left = (props: Props) => (
 	</section>
 );
 
-export const Right = (props: Props) => (
-	<section className={styles.right} {...props}>
-		<Button icon="note" />
-		<Spacer flexible />
-		<Button icon="format" />
-		<Button icon="checklist" />
-		<Button icon="table" />
-		<Spacer flexible />
-		<Button icon="link" />
-		<Button icon="photos" dropDown />
-		<Button icon="lock" dropDown />
-		<Button icon="collaborate" />
-		<Button icon="share" />
-		<Search suggestions={suggestions} />
-	</section>
-);
+export const Right = (props: Props) => {
+	const [items, setItems] = useState([]);
+	return (
+		<section className={styles.right} {...props}>
+			<Button icon="note" />
+			<Spacer flexible />
+			<Button icon="format" />
+			<Button icon="checklist" />
+			<Button icon="table" />
+			<Spacer flexible />
+			<Wrap
+				className={styles.hStack}
+				flexDirection="row-reverse"
+				onWrap={(elements) => setItems(elements)}
+			>
+				{items.at(-1) && <Button icon="chevron-right-double" />}
+				<Button icon="share" />
+				<Button icon="collaborate" />
+				<Dropdown>
+					<Button icon="lock" dropDown />
+					<ModalCard>
+						<p>banana</p>
+					</ModalCard>
+				</Dropdown>
+				<Button icon="photos" dropDown />
+				<Button icon="link" />
+			</Wrap>
+			<Search suggestions={suggestions} />
+		</section>
+	);
+};

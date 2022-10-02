@@ -17,4 +17,13 @@
 	min-width: min-content;
 }
 
+.hStack {
+	display: flex;
+	column-gap: 0.25rem;
+	overflow: hidden;
+	max-height: 1.625rem;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
 /* TODO: Handle smaller layouts. */

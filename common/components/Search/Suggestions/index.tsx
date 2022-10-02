@@ -1,6 +1,7 @@
 import cn from "classnames";
 
 import Icon from "@components/Icon";
+import ModalCard from "@components/ModalCard";
 import { Suggestion } from "@type/search";
 
 import styles from "./suggestions.module.css";
@@ -13,7 +14,7 @@ interface Props {
 
 export default ({ suggestions = [], visible, onClick = () => {} }: Props) => {
 	return (
-		<span
+		<ModalCard
 			className={cn(styles.suggestions, { [styles.visible]: visible })}
 			onClick={(e) => {
 				e.stopPropagation();
@@ -32,6 +33,6 @@ export default ({ suggestions = [], visible, onClick = () => {} }: Props) => {
 					</button>
 				))}
 			</span>
-		</span>
+		</ModalCard>
 	);
 };

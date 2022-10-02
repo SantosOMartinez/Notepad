@@ -6,12 +6,27 @@ import Divider from "@components/Divider";
 
 import styles from "./resizableHStack.module.css";
 
-interface Props extends HTMLAttributes<HTMLDivElement> {}
+interface MaxSize {
+	[key: number]: number;
+}
 
-export default ({ children, className, ...props }: Props) => {
+interface Props extends HTMLAttributes<HTMLDivElement> {
+	maxSizes?: MaxSize;
+	minSizes?: MaxSize;
+}
+
+export default ({
+	children,
+	className,
+	minSizes,
+	maxSizes,
+	...props
+}: Props) => {
 	return (
 		<Split
 			cursor="col-resize"
+			columnMaxSizes={maxSizes}
+			columnMinSizes={minSizes}
 			render={({ getGridProps, getGutterProps }) => (
 				<div
 					className={cn(styles.wrapper, className)}
