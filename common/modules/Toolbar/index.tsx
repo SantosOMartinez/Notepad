@@ -29,7 +29,6 @@ export const Left = (props: Props) => (
 export const Right = (props: Props) => {
 	const [wrapped, setWrapped] = useState([]);
 
-	console.log(wrapped);
 	return (
 		<section className={styles.right} {...props}>
 			<Button icon="note" />
