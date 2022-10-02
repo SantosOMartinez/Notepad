@@ -18,12 +18,28 @@
 }
 
 .hStack {
-	display: flex;
 	column-gap: 0.25rem;
-	overflow: hidden;
 	max-height: 1.625rem;
 	align-items: center;
-	flex-wrap: wrap;
+	min-width: 0;
+}
+
+.item {
+	transition: var(--transition);
+	scale: 1;
+}
+
+.vanish {
+	scale: 0;
+	transition: var(--transition);
+	animation: disappear calc(var(--transition)) forwards;
+	pointer-events: none;
 }
 
 /* TODO: Handle smaller layouts. */
+
+@keyframes disappear {
+	to {
+		width: 0;
+	}
+}

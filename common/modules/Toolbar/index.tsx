@@ -27,7 +27,9 @@ export const Left = (props: Props) => (
 );
 
 export const Right = (props: Props) => {
-	const [items, setItems] = useState([]);
+	const [wrapped, setWrapped] = useState([]);
+
+	console.log(wrapped);
 	return (
 		<section className={styles.right} {...props}>
 			<Button icon="note" />
@@ -39,9 +41,11 @@ export const Right = (props: Props) => {
 			<Wrap
 				className={styles.hStack}
 				flexDirection="row-reverse"
-				onWrap={(elements) => setItems(elements)}
+				onWrap={(elements) => setWrapped(elements)}
+				hiddenClassName={styles.vanish}
+				visibleClassName={styles.item}
 			>
-				{items.at(-1) && <Button icon="chevron-right-double" />}
+				{wrapped.at(-1) && <Button icon="chevron-right-double" />}
 				<Button icon="share" />
 				<Button icon="collaborate" />
 				<Dropdown>

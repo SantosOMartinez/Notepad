@@ -1,0 +1,20 @@
+.container {
+	position: relative;
+	flex-grow: 1;
+}
+
+.content {
+	display: flex;
+}
+
+.scaffold {
+	top: 0;
+	display: flex;
+	flex-wrap: wrap;
+	position: absolute;
+	flex-grow: 1;
+	opacity: 0;
+	pointer-events: none;
+	visibility: hidden;
+	overflow: hidden;
+}

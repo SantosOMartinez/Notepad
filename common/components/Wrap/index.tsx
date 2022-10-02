@@ -1,12 +1,16 @@
 import cn from "classnames";
 import {
+    Children,
+    cloneElement,
     CSSProperties,
     HTMLAttributes,
-    ReactHTMLElement,
+    ReactElement,
     useEffect,
     useRef,
     useState
 } from "react";
+
+import styles from "./wrap.module.css";
 
 const isWrap = (first, current) => {
 	const previous = current.previousElementSibling;
@@ -19,23 +23,29 @@ const isWrap = (first, current) => {
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	onWrap?: (elements: boolean[]) => void;
 	flexDirection?: CSSProperties["flexDirection"];
+	visibleClassName?: string;
+	hiddenClassName?: string;
 }
 
 export default ({
 	onWrap = () => {},
 	flexDirection,
 	children,
+	className,
+	visibleClassName,
+	hiddenClassName,
 	style,
 	...props
 }: Props) => {
 	const ref = useRef<HTMLDivElement>(null);
+	const [wrapped, setWrapped] = useState([]);
 
 	const assignRows = (parent) => {
 		let row = 0;
 		const list: boolean[] = [];
 		const children = [...parent.children];
 
-		if (children.length == 0) return onWrap(list);
+		if (children.length == 0) return setWrapped(list);
 
 		children.forEach((child) => {
 			if (isWrap(child.previousElementSibling, child)) {
@@ -44,8 +54,10 @@ export default ({
 			list.push(row > 0);
 		});
 
-		onWrap(list);
+		setWrapped(list);
 	};
+
+	useEffect(() => onWrap(wrapped), [wrapped]);
 
 	useEffect(() => {
 		if (!ref.current) return;
@@ -60,9 +72,32 @@ export default ({
 		assignRows(ref.current);
 	}, [ref.current]);
 
+	const display = Children.toArray(children).map((child: ReactElement, i) =>
+		i > 0
+			? cloneElement(child, {
+					className: wrapped.at(i)
+						? hiddenClassName
+						: visibleClassName,
+			  })
+			: child
+	);
+
 	return (
-		<div style={{ ...style, flexDirection }} {...props} ref={ref}>
-			{children}
+		<div {...props} className={cn(styles.container, className)}>
+			<div
+				className={cn(styles.content, className)}
+				style={{ ...style, flexDirection }}
+			>
+				{display}
+			</div>
+			<div
+				ref={ref}
+				className={cn(styles.scaffold, className)}
+				style={{ ...style, flexDirection }}
+				tabIndex={-1}
+			>
+				{children}
+			</div>
 		</div>
 	);
 };
