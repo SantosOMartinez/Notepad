@@ -10,6 +10,7 @@ import Spacer from "@components/Spacer";
 import Wrap from "@components/Wrap";
 import { suggestions } from "@constants/text";
 
+import More from "./buttons/More";
 import styles from "./toolbar.module.css";
 
 interface Props extends HTMLAttributes<HTMLElement> {}
@@ -29,8 +30,6 @@ export const Left = (props: Props) => (
 
 export const Right = (props: Props) => {
 	const [wrapped, setWrapped] = useState([]);
-
-	console.log(wrapped);
 
 	return (
 		<section className={styles.right} {...props}>
@@ -58,11 +57,11 @@ export const Right = (props: Props) => {
 				<Button icon="share" />
 			</Wrap>
 			{wrapped.at(-1) && (
-				<Button
-					icon="chevron-right-double"
+				<More
 					className={cn(styles.more, {
 						[styles.slide]: wrapped.at(-1),
 					})}
+					visible={wrapped}
 				/>
 			)}
 			<Search suggestions={suggestions} />

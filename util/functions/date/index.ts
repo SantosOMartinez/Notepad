@@ -53,8 +53,6 @@ const toTimestamp = (date: Date) => {
 	const now = Date.now();
 	const diff = now - date.getTime();
 
-	console.log(diff / day);
-
 	if (diff <= 1) {
 		return formatTime(date);
 	} else if (diff / day <= 2) {

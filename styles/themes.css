@@ -15,8 +15,8 @@
 	--divider: var(--neutral-8);
 	--glass: linear-gradient(
 		115.93deg,
-		rgba(233, 236, 239, 0.25) 0%,
-		rgba(233, 236, 239, 0.25) 100%
+		rgba(233, 236, 239, 0.75) 0%,
+		rgba(233, 236, 239, 0.8) 100%
 	);
 }
 
@@ -36,8 +36,8 @@
 	--divider: var(--neutral-8);
 	--glass: linear-gradient(
 		115.93deg,
-		rgba(233, 236, 239, 0.25) 0%,
-		rgba(233, 236, 239, 0.25) 100%
+		rgba(233, 236, 239, 0.75) 0%,
+		rgba(233, 236, 239, 0.8) 100%
 	);
 }
 
@@ -57,7 +57,7 @@
 	--divider: rgba(var(--neutral-3), 0.25);
 	--glass: linear-gradient(
 		157.32deg,
-		rgba(35, 30, 41, 0.5) 44.12%,
-		rgba(30, 30, 30, 0.25) 128.34%
+		rgba(35, 30, 41, 0.75) 44.12%,
+		rgba(30, 30, 30, 0.8) 128.34%
 	);
 }

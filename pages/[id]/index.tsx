@@ -1,16 +1,17 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import Theme from "@components/Theme";
 import ListView from "@layouts/ListView";
+import Settings from "@modules/Settings";
 import List from "@templates/List";
+import Note from "@type/note";
 
 import styles from "./style.module.css";
 
 export default () => {
 	const router = useRouter();
 	const { id } = router.query;
-	const [list, setList] = useState([]);
+	const [list, setList] = useState<Note[]>([]);
 
 	useEffect(() => {
 		const timeout = setTimeout(
@@ -24,11 +25,16 @@ export default () => {
 		return () => clearTimeout(timeout);
 	}, []);
 
+	useEffect(() => {
+		if (id || list.length === 0) return;
+		router.push(`/${list.at(0).id}`, undefined, { shallow: true });
+	}, [id, list]);
+
 	return (
 		<ListView>
 			<div className={styles.left}>
 				<List active={id as string} list={list} />
-				<Theme />
+				<Settings />
 			</div>
 			<div className={styles.right}></div>
 		</ListView>
