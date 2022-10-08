@@ -2,5 +2,5 @@
 	display: grid;
 	height: 100%;
 	width: 100%;
-	grid-template-columns: 1fr 10px 4fr;
+	grid-template-columns: 1fr 10px 2fr;
 }

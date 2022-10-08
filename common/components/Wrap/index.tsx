@@ -15,7 +15,10 @@ import styles from "./wrap.module.css";
 const isWrap = (first, current) => {
 	const previous = current.previousElementSibling;
 
-	if (!previous) return false;
+	if (!previous) {
+		const next = current.nextElementSibling;
+		return current.offsetTop < next.offsetTop;
+	}
 
 	return current.offsetTop > first.offsetTop;
 };
@@ -73,13 +76,9 @@ export default ({
 	}, [ref.current]);
 
 	const display = Children.toArray(children).map((child: ReactElement, i) =>
-		i > 0
-			? cloneElement(child, {
-					className: wrapped.at(i)
-						? hiddenClassName
-						: visibleClassName,
-			  })
-			: child
+		cloneElement(child, {
+			className: wrapped.at(i) ? hiddenClassName : visibleClassName,
+		})
 	);
 
 	return (

@@ -1,18 +1,18 @@
 import cn from "classnames";
-import { Children, Fragment, HTMLAttributes, useEffect, useState } from "react";
+import { Children, Fragment, HTMLAttributes } from "react";
 import Split from "react-split-grid";
 
 import Divider from "@components/Divider";
 
 import styles from "./resizableHStack.module.css";
 
-interface MaxSize {
+interface Size {
 	[key: number]: number;
 }
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-	maxSizes?: MaxSize;
-	minSizes?: MaxSize;
+	maxSizes?: Size;
+	minSizes?: Size;
 }
 
 export default ({

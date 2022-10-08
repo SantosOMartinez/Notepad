@@ -1,0 +1,9 @@
+.left {
+	display: grid;
+	height: calc(100vh - 50px - 0.25rem);
+	align-items: center;
+	grid-template-rows: 1fr max-content;
+	overflow: hidden;
+}
+.right {
+}

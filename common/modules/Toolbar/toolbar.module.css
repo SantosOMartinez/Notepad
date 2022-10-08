@@ -36,10 +36,29 @@
 	pointer-events: none;
 }
 
-/* TODO: Handle smaller layouts. */
-
 @keyframes disappear {
 	to {
 		width: 0;
+	}
+}
+
+.more {
+	animation: slide var(--transition) forwards;
+}
+
+@keyframes slide {
+	0% {
+		scale: 0;
+		opacity: 0;
+		transform: translateX(50%);
+	}
+
+	50% {
+		scale: 1;
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(0);
 	}
 }

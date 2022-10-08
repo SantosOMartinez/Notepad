@@ -1,10 +1,13 @@
 .container {
 	position: relative;
 	flex-grow: 1;
+	width: 100%;
+	display: grid;
 }
 
 .content {
 	display: flex;
+	margin-left: auto;
 }
 
 .scaffold {
@@ -17,4 +20,5 @@
 	pointer-events: none;
 	visibility: hidden;
 	overflow: hidden;
+	width: 100%;
 }

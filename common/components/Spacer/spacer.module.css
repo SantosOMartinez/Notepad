@@ -8,4 +8,5 @@
 	min-width: unset;
 	width: 0;
 	margin: 0 auto;
+	flex-grow: 1;
 }

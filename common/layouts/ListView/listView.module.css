@@ -1,3 +1,7 @@
+.container {
+	height: 100vh;
+}
+
 .container::before {
 	position: absolute;
 	width: 100%;

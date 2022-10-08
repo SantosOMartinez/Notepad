@@ -1,3 +1,4 @@
+import cn from "classnames";
 import { HTMLAttributes, useState } from "react";
 
 import Button from "@components/Button";
@@ -29,6 +30,8 @@ export const Left = (props: Props) => (
 export const Right = (props: Props) => {
 	const [wrapped, setWrapped] = useState([]);
 
+	console.log(wrapped);
+
 	return (
 		<section className={styles.right} {...props}>
 			<Button icon="note" />
@@ -39,23 +42,30 @@ export const Right = (props: Props) => {
 			<Spacer flexible />
 			<Wrap
 				className={styles.hStack}
-				flexDirection="row-reverse"
 				onWrap={(elements) => setWrapped(elements)}
 				hiddenClassName={styles.vanish}
 				visibleClassName={styles.item}
 			>
-				{wrapped.at(-1) && <Button icon="chevron-right-double" />}
-				<Button icon="share" />
-				<Button icon="collaborate" />
+				<Button icon="link" />
+				<Button icon="photos" dropDown />
 				<Dropdown>
 					<Button icon="lock" dropDown />
 					<ModalCard>
 						<p>banana</p>
 					</ModalCard>
 				</Dropdown>
-				<Button icon="photos" dropDown />
-				<Button icon="link" />
+				<Button icon="collaborate" />
+
+				<Button icon="share" />
 			</Wrap>
+			{wrapped.at(-1) && (
+				<Button
+					icon="chevron-right-double"
+					className={cn(styles.more, {
+						[styles.slide]: wrapped.at(-1),
+					})}
+				/>
+			)}
 			<Search suggestions={suggestions} />
 		</section>
 	);

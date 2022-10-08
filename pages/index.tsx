@@ -1,14 +1,3 @@
-import Layout from "@layouts/Layout";
+import Page from "./[id]";
 
-export default () => {
-	return (
-		<main>
-			<Layout></Layout>
-			<style jsx>{`
-				main {
-					height: 100vh;
-				}
-			`}</style>
-		</main>
-	);
-};
+export default Page;

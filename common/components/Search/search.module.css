@@ -2,7 +2,7 @@
 	flex-grow: 1;
 	max-width: min(13rem, 100%);
 	position: relative;
-	min-width: 0.72rem;
+	min-width: 1.75rem;
 }
 
 .search {
