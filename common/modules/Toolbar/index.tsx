@@ -39,7 +39,6 @@ export const Right = (props: Props) => {
 			<Button icon="format" />
 			<Button icon="checklist" />
 			<Button icon="table" />
-			<Spacer flexible />
 			<Wrap
 				className={styles.hStack}
 				onWrap={(elements) => setWrapped(elements)}

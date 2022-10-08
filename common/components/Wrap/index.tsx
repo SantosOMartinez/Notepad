@@ -16,6 +16,7 @@ const isWrap = (first, current) => {
 	const previous = current.previousElementSibling;
 
 	if (!previous) {
+		//TODO: Add logic to check when first element is to be "wrapped".
 		const next = current.nextElementSibling;
 		return current.offsetTop < next.offsetTop;
 	}
