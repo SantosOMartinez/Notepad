@@ -1,8 +1,7 @@
 import { useMenuState } from "ariakit/menu";
-import { usePopoverState } from "ariakit/popover";
 
 import Icon from "@components/Icon";
-import { Menu, MenuButton, Popover, PopoverDisclosure } from "@components/Menu";
+import { Menu, MenuButton } from "@components/Menu";
 
 import { Copy as C, Lock as L, Media as M } from "./contextMenus";
 
@@ -19,17 +18,6 @@ const menuConfig = {
     - Collaborate
     - Copy
 */
-
-export const Format = () => {
-	const popover = usePopoverState({ animated: true });
-
-	return (
-		<>
-			<PopoverDisclosure state={popover} icon="format" />
-			<Popover state={popover}>Format</Popover>
-		</>
-	);
-};
 
 export const Photos = (props) => {
 	const menu = useMenuState(menuConfig);

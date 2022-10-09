@@ -1,0 +1,27 @@
+.container {
+	display: grid;
+	grid-template-rows: max-content 1fr;
+	row-gap: 1rem;
+	padding: 0 1rem 0.5rem;
+	position: relative;
+}
+
+.date {
+	color: var(--subtitle);
+	text-align: center;
+	opacity: 0.75;
+	font-size: 12px;
+	font-weight: 400;
+	pointer-events: none;
+	user-select: none;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+}
+
+.editor {
+	padding-top: calc(0.5rem + 14px);
+	font-family: Inter;
+	font-size: 0.875rem;
+}

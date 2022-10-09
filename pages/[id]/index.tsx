@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+import Editor from "@components/Editor";
 import Settings from "@components/Settings";
 import ListView from "@layouts/ListView";
 import List from "@templates/List";
@@ -36,7 +37,9 @@ export default () => {
 				<List active={id as string} list={list} />
 				<Settings />
 			</div>
-			<div className={styles.right}></div>
+			<div className={styles.right}>
+				<Editor date={list.find((note) => note.id === id)?.date} />
+			</div>
 		</ListView>
 	);
 };

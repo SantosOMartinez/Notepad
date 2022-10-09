@@ -22,7 +22,7 @@ export default (props) => {
 	return (
 		<div {...props}>
 			<PopoverDisclosure state={popover} icon="link" />
-			<Popover state={popover}>
+			<Popover state={popover} portal>
 				<p className={styles.header}>Add App Link</p>
 				<div className={styles.link}>
 					<img className={styles.img} src={thumbnail} />

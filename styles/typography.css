@@ -89,6 +89,6 @@ p strong {
 
 a {
 	cursor: pointer;
-	color: var(--primary-1);
+	color: var(--accent);
 	text-decoration: underline;
 }

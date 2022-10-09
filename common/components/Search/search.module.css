@@ -19,7 +19,7 @@
 
 .visible,
 .focused .search {
-	border: 2px solid var(--primary-1);
+	border: 2px solid var(--accent);
 	margin: 0;
 }
 
@@ -38,7 +38,7 @@
 
 .tag:focus,
 .tag:active {
-	background-color: var(--primary-1);
+	background-color: var(--accent);
 	color: var(--neutral-9);
 }
 

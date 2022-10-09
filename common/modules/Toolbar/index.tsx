@@ -8,7 +8,8 @@ import Spacer from "@components/Spacer";
 import Wrap from "@components/Wrap";
 import { suggestions } from "@constants/text";
 
-import { Copy, Format, Lock, Photos } from "./controls";
+import { Copy, Lock, Photos } from "./controls";
+import Format from "./controls/Format";
 import Link from "./controls/Link";
 import More from "./controls/More";
 import styles from "./toolbar.module.css";
