@@ -1,20 +1,34 @@
 import {
     Menu as BaseMenu,
     MenuBar as BaseMenuBar,
-    MenuButton,
+    MenuButton as BaseMenuButton,
     MenuButtonArrow,
+    MenuButtonOptions,
     MenuItem as BaseMenuItem,
+    MenuOptions,
     MenuSeparator as BaseMenuSeparator,
     useMenuBarState,
     useMenuState
 } from "ariakit/menu";
 import {
+    Popover as BasePopover,
+    PopoverArrow,
+    PopoverDisclosure as BasePopoverDisclosure,
+    PopoverDisclosureOptions,
+    PopoverOptions
+} from "ariakit/popover";
+import cn from "classnames";
+import {
+    ButtonHTMLAttributes,
     createContext,
     forwardRef,
     HTMLAttributes,
     ReactNode,
     useContext
 } from "react";
+
+import Icon from "@components/Icon";
+import { IconName } from "@type/icons";
 
 import styles from "./menu.module.css";
 
@@ -57,46 +71,69 @@ export const MenuSeparator = forwardRef<HTMLHRElement, MenuSeparatorProps>(
 	}
 );
 
-export type MenuProps = HTMLAttributes<HTMLDivElement> & {
+export interface MenuButtonProps
+	extends HTMLAttributes<HTMLDivElement>,
+		MenuButtonOptions {
+	disabled?: boolean;
+	arrow?: boolean;
+	type?: "button" | "item";
+}
+
+/**
+ * MenuItem
+ */
+export const MenuButton = forwardRef<HTMLDivElement, MenuButtonProps>(
+	({ children, state, arrow, type, ...props }, ref) => {
+		return (
+			<BaseMenuButton
+				state={state}
+				as={BaseMenuItem}
+				className={type === "button" ? styles.button : styles.item}
+				ref={ref}
+				{...props}
+			>
+				{children}
+				{arrow && <MenuButtonArrow className={styles.btnArrow} />}
+			</BaseMenuButton>
+		);
+	}
+);
+
+export type RecursiveMenuProps = HTMLAttributes<HTMLDivElement> & {
 	label?: ReactNode;
 	disabled?: boolean;
-	button?: ReactNode;
+	icon?: IconName;
+	arrow?: boolean;
 };
 
 /**
- * Menu
+ * Recursive Menu
  */
-export const Menu = forwardRef<HTMLDivElement, MenuProps>(
-	({ label, children, button, ...props }, ref) => {
+export const RecursiveMenu = forwardRef<HTMLDivElement, RecursiveMenuProps>(
+	({ label, children, icon, ...props }, ref) => {
 		const inSubmenu = useContext(MenuContext);
 		const menu = useMenuState({
 			gutter: inSubmenu ? 8 : 4,
 			overlap: inSubmenu,
 			fitViewport: true,
 			shift: inSubmenu ? -9 : -2,
+			animated: true,
 		});
 		return (
 			<>
-				{button ? (
-					<MenuButton
-						state={menu}
-						as={BaseMenuItem}
-						className={styles.button}
-						ref={ref}
-						{...props}
-					>
-						{button}
+				{icon ? (
+					<MenuButton state={menu} ref={ref} {...props} type="button">
+						<Icon icon={icon} />
 					</MenuButton>
 				) : (
 					<MenuButton
 						state={menu}
-						as={BaseMenuItem}
-						className={styles.item}
+						type="item"
 						ref={ref}
 						{...props}
+						arrow={inSubmenu || props.arrow}
 					>
 						<span className={styles.label}>{label}</span>
-						{inSubmenu && <MenuButtonArrow />}
 					</MenuButton>
 				)}
 				{menu.mounted && (
@@ -107,6 +144,23 @@ export const Menu = forwardRef<HTMLDivElement, MenuProps>(
 					</BaseMenu>
 				)}
 			</>
+		);
+	}
+);
+
+interface MenuProps extends HTMLAttributes<HTMLDivElement>, MenuOptions {}
+
+export const Menu = forwardRef<HTMLDivElement, MenuProps>(
+	({ children, state, ...props }, ref) => {
+		return (
+			<BaseMenu
+				state={state}
+				className={styles.menu}
+				{...props}
+				ref={ref}
+			>
+				{children}
+			</BaseMenu>
 		);
 	}
 );
@@ -128,4 +182,43 @@ export const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(
 			/>
 		);
 	}
+);
+
+interface PopoverDisclosureProps
+	extends ButtonHTMLAttributes<HTMLButtonElement>,
+		PopoverDisclosureOptions {
+	icon?: IconName;
+	arrow?: boolean;
+}
+
+/**
+ * Popover Disclosure
+ */
+export const PopoverDisclosure = forwardRef<
+	HTMLButtonElement,
+	PopoverDisclosureProps
+>(({ children, icon, arrow, className, ...props }, ref) => (
+	<BasePopoverDisclosure
+		className={cn(styles.button, className)}
+		ref={ref}
+		{...props}
+	>
+		{icon && <Icon icon={icon} />}
+		{children}
+		{arrow && <MenuButtonArrow />}
+	</BasePopoverDisclosure>
+));
+
+interface PopoverProps extends HTMLAttributes<HTMLDivElement>, PopoverOptions {}
+
+/**
+ * Popover Disclosure
+ */
+export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
+	({ children, ...props }, ref) => (
+		<BasePopover className={styles.popover} ref={ref} {...props}>
+			<PopoverArrow className={styles.arrow} />
+			{children}
+		</BasePopover>
+	)
 );

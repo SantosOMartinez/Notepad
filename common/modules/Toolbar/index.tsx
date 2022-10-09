@@ -10,6 +10,7 @@ import Spacer from "@components/Spacer";
 import Wrap from "@components/Wrap";
 import { suggestions } from "@constants/text";
 
+import { Copy, Format, Link, Lock, Photos } from "./buttons";
 import More from "./buttons/More";
 import styles from "./toolbar.module.css";
 
@@ -35,7 +36,7 @@ export const Right = (props: Props) => {
 		<section className={styles.right} {...props}>
 			<Button icon="note" />
 			<Spacer flexible />
-			<Button icon="format" />
+			<Format />
 			<Button icon="checklist" />
 			<Button icon="table" />
 			<Wrap
@@ -44,17 +45,11 @@ export const Right = (props: Props) => {
 				hiddenClassName={styles.vanish}
 				visibleClassName={styles.item}
 			>
-				<Button icon="link" />
-				<Button icon="photos" dropDown />
-				<Dropdown>
-					<Button icon="lock" dropDown />
-					<ModalCard>
-						<p>banana</p>
-					</ModalCard>
-				</Dropdown>
+				<Link />
+				<Photos />
+				<Lock />
 				<Button icon="collaborate" />
-
-				<Button icon="share" />
+				<Copy />
 			</Wrap>
 			{wrapped.at(-1) && (
 				<More

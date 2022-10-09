@@ -27,12 +27,21 @@
 		calc(100% - calc(var(--popover-overflow-padding) * 2))
 	);
 	width: max-content;
-	background-image: var(--glass);
+	background: var(--glass);
 	box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.12);
 	backdrop-filter: blur(0.5rem);
 	padding: 0.25rem;
 	border-radius: 0.5rem;
 	border-color: var(--divider);
+
+	transition: var(--transition);
+	opacity: 0;
+	scale: 0.97;
+}
+
+.menu[data-enter] {
+	opacity: 1;
+	scale: 1;
 }
 
 .item {
@@ -83,7 +92,7 @@
 }
 
 .bar > .item:hover {
-	background-color: hsl(204 100% 90%);
+	background-color: var(--hover-bg);
 }
 
 .item:active,
@@ -108,8 +117,6 @@
 	flex: 1 1 0%;
 	padding-right: 2rem;
 }
-
-/* @styled-jsx=scoped */
 
 .button {
 	z-index: 1;
@@ -148,4 +155,40 @@
 .button > svg:nth-child(2) {
 	height: 1rem;
 	width: 1rem;
+}
+
+/* Popover  */
+
+.popover {
+	z-index: 50;
+	display: flex;
+	max-width: min(calc(100vw - 16px), 320px);
+	flex-direction: column;
+	gap: 0.5rem;
+	border-radius: 0.5rem;
+	border-width: 1px;
+	border-style: solid;
+	border-color: var(--divider);
+	padding: 0.5rem;
+	color: var(--text);
+
+	background: var(--glass);
+	box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.12);
+	backdrop-filter: blur(0.5rem);
+	outline: none;
+
+	transition: var(--transition);
+	opacity: 0;
+	transform: translateY(-10px) scale(0.9);
+}
+
+.popover[data-enter] {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+.arrow svg {
+	fill: var(--glass-opaque);
+	stroke: var(--divider);
+	margin-top: 1px;
 }

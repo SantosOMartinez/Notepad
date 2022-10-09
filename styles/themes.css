@@ -13,11 +13,9 @@
 	--hover-icon: var(--neutral-3);
 	--hover-bg-select: var(--neutral-8);
 	--divider: var(--neutral-8);
-	--glass: linear-gradient(
-		115.93deg,
-		rgba(233, 236, 239, 0.75) 0%,
-		rgba(233, 236, 239, 0.8) 100%
-	);
+	--glass: rgba(246, 248, 249, 0.8);
+	--glass-opaque: #f6f8f9;
+	--border: var(--neutral-7);
 }
 
 /* Light */
@@ -34,11 +32,9 @@
 	--hover-icon: var(--neutral-3);
 	--hover-bg-select: var(--neutral-8);
 	--divider: var(--neutral-8);
-	--glass: linear-gradient(
-		115.93deg,
-		rgba(233, 236, 239, 0.75) 0%,
-		rgba(233, 236, 239, 0.8) 100%
-	);
+	--glass: rgba(246, 248, 249, 0.8);
+	--glass-opaque: #f6f8f9;
+	--border: var(--neutral-7);
 }
 
 /* Dark */
@@ -55,9 +51,7 @@
 	--hover-icon: var(--neutral-7);
 	--hover-bg-select: var(--neutral-2);
 	--divider: rgba(var(--neutral-3), 0.25);
-	--glass: linear-gradient(
-		157.32deg,
-		rgba(35, 30, 41, 0.75) 44.12%,
-		rgba(30, 30, 30, 0.8) 128.34%
-	);
+	--glass: rgba(35, 30, 41, 0.8);
+	--glass-opaque: rgb(35, 30, 41);
+	--border: var(--neutral-4);
 }
