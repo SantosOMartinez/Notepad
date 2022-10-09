@@ -1,6 +1,6 @@
 import { MenuItem, RecursiveMenu as Menu } from "@components/Menu";
 
-import { Copy as C, Lock as L, Media as M } from "../Controls";
+import { Copy as C, Lock as L, Media as M } from "./contextMenus";
 
 interface Props {
 	visible?: boolean[];

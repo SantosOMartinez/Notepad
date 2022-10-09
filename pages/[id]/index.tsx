@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+import Settings from "@components/Settings";
 import ListView from "@layouts/ListView";
-import Settings from "@modules/Settings";
 import List from "@templates/List";
 import Note from "@type/note";
 

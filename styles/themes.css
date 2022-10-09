@@ -16,6 +16,7 @@
 	--glass: rgba(246, 248, 249, 0.8);
 	--glass-opaque: #f6f8f9;
 	--border: var(--neutral-7);
+	--shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 /* Light */
@@ -35,6 +36,7 @@
 	--glass: rgba(246, 248, 249, 0.8);
 	--glass-opaque: #f6f8f9;
 	--border: var(--neutral-7);
+	--shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 /* Dark */
@@ -54,4 +56,6 @@
 	--glass: rgba(35, 30, 41, 0.8);
 	--glass-opaque: rgb(35, 30, 41);
 	--border: var(--neutral-4);
+	--shadow: 0 10px 15px -3px rgb(0 0 0 / 0.25),
+		0 4px 6px -4px rgb(0 0 0 / 0.1);
 }

@@ -2,16 +2,15 @@ import cn from "classnames";
 import { HTMLAttributes, useState } from "react";
 
 import Button from "@components/Button";
-import Dropdown from "@components/Dropdown";
-import ModalCard from "@components/ModalCard";
 import Multiselect from "@components/Multiselect";
 import Search from "@components/Search";
 import Spacer from "@components/Spacer";
 import Wrap from "@components/Wrap";
 import { suggestions } from "@constants/text";
 
-import { Copy, Format, Link, Lock, Photos } from "./buttons";
-import More from "./buttons/More";
+import { Copy, Format, Lock, Photos } from "./controls";
+import Link from "./controls/Link";
+import More from "./controls/More";
 import styles from "./toolbar.module.css";
 
 interface Props extends HTMLAttributes<HTMLElement> {}
