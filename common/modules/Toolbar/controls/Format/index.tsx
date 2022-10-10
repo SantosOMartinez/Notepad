@@ -11,19 +11,19 @@ import { HTMLAttributes, useEffect, useState } from "react";
 import Icon from "@components/Icon";
 import { Popover, PopoverDisclosure } from "@components/Menu";
 import TextStyle from "@components/TextStyle";
-import { Annotations, TextType } from "@type/text";
+import { Annotations, ElementType as Type } from "@type/editor";
 
 import styles from "./format.module.css";
 
 const options = [
-	{ value: TextType.Title, name: "Title" },
-	{ value: TextType.Heading, name: "Heading" },
-	{ value: TextType.Subheading, name: "Subheading" },
-	{ value: TextType.Body, name: "Body" },
-	{ value: TextType.Monospaced, name: "Monospaced" },
-	{ value: TextType.BulletedList, name: "• Bulleted List" },
-	{ value: TextType.DashedList, name: "- Dashed List" },
-	{ value: TextType.NumberedList, name: "1. Numbered List" },
+	{ value: Type.Title, name: "Title" },
+	{ value: Type.Heading, name: "Heading" },
+	{ value: Type.Subheading, name: "Subheading" },
+	{ value: Type.Body, name: "Body" },
+	{ value: Type.Monospaced, name: "Monospaced" },
+	{ value: Type.BulletedList, name: "• Bulleted List" },
+	{ value: Type.DashedList, name: "- Dashed List" },
+	{ value: Type.NumberedList, name: "1. Numbered List" },
 ];
 
 const baseAnnotations = {
@@ -65,13 +65,13 @@ const SelectItem = ({ selected, children, ...props }: SelectItemProps) => (
 
 interface FormatContextProps {
 	onSelect?: () => void;
-	defaultValue?: TextType;
+	defaultValue?: Type;
 	defaultAnnotations?: Annotations;
 }
 
 export const FormatContext = ({
 	onSelect = () => {},
-	defaultValue = TextType.Body,
+	defaultValue = Type.Body,
 	defaultAnnotations = baseAnnotations,
 }: FormatContextProps) => {
 	const select = useSelectState({

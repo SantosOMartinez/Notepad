@@ -11,7 +11,7 @@ import { withHistory } from "slate-history";
 import { Editable, Slate, withReact } from "slate-react";
 
 import { formatDate } from "@functions/date";
-import { TextType } from "@type/text";
+import { ElementType as Type } from "@type/editor";
 
 import { Element, Leaf } from "./Block";
 import styles from "./editor.module.css";
@@ -30,11 +30,11 @@ const format = (date: Date) =>
 
 const initialValue: Descendant[] = [
 	{
-		type: TextType.Title,
+		type: Type.Title,
 		children: [{ text: "Apple Notes " }],
 	},
 	{
-		type: TextType.Body,
+		type: Type.Body,
 		children: [
 			{ text: "This is a " },
 			{ text: "recreation", annotations: { bold: true } },
@@ -52,20 +52,20 @@ const initialValue: Descendant[] = [
 		],
 	},
 	{
-		type: TextType.DashedList,
+		type: Type.DashedList,
 		children: [
 			{ text: "Dashed List", annotations: { strikethrough: true } },
 		],
 	},
 	{
-		type: TextType.BulletedList,
+		type: Type.BulletedList,
 		children: [
 			{ text: "Bullet " },
 			{ text: "List", annotations: { underline: true } },
 		],
 	},
 	{
-		type: TextType.NumberedList,
+		type: Type.NumberedList,
 		children: [
 			{ text: "Number " },
 			{ text: "List", annotations: { bold: true, underline: true } },

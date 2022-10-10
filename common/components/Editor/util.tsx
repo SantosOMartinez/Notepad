@@ -11,12 +11,12 @@ import {
 } from "slate";
 import { jsx } from "slate-hyperscript";
 
-import { ElementType, HelperType, TextElement, TextType } from "@type/text";
+import { ElementType as Type, TextElement } from "@type/editor";
 
-const LIST_TYPES: ElementType[] = [
-	TextType.BulletedList,
-	TextType.DashedList,
-	TextType.NumberedList,
+const LIST_TYPES: Type[] = [
+	Type.BulletedList,
+	Type.DashedList,
+	Type.NumberedList,
 ];
 
 const ELEMENT_TAGS = {
@@ -160,7 +160,7 @@ export const isImageUrl = (url) => {
 
 const insertImage = (editor, url) => {
 	const text = { text: "" };
-	const image = { type: HelperType.Image, url, children: [text] };
+	const image = { type: Type.Media, url, children: [text] };
 	Transforms.insertNodes(editor, image);
 };
 
@@ -172,7 +172,7 @@ export const withTables = (editor) => {
 
 		if (selection && Range.isCollapsed(selection)) {
 			const [cell] = Editor.nodes(editor, {
-				match: (n: TextElement) => n.type === HelperType.TCell,
+				match: (n: TextElement) => n.type === Type.TCell,
 			});
 
 			if (cell) {
@@ -193,7 +193,7 @@ export const withTables = (editor) => {
 
 		if (selection && Range.isCollapsed(selection)) {
 			const [cell] = Editor.nodes(editor, {
-				match: (n: TextElement) => n.type === HelperType.TCell,
+				match: (n: TextElement) => n.type === Type.TCell,
 			});
 
 			if (cell) {
@@ -214,7 +214,7 @@ export const withTables = (editor) => {
 
 		if (selection) {
 			const [table] = Editor.nodes(editor, {
-				match: (n: TextElement) => n.type === HelperType.Table,
+				match: (n: TextElement) => n.type === Type.Table,
 			});
 
 			if (table) {
@@ -236,7 +236,7 @@ export const withHtml = (editor) => {
 	};
 
 	editor.isVoid = (element) => {
-		return element.type === HelperType.Image ? true : isVoid(element);
+		return element.type === Type.Media ? true : isVoid(element);
 	};
 
 	editor.insertData = (data) => {
@@ -265,7 +265,7 @@ export const toggleBlock = (editor: CustomTypes["Editor"], format) => {
 	});
 
 	Transforms.setNodes(editor, {
-		type: isActive ? TextType.Body : isList ? HelperType.ListItem : format,
+		type: isActive ? Type.Body : isList ? Type.ListItem : format,
 	});
 
 	if (!isActive && isList) {

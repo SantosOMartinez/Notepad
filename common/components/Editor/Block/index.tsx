@@ -6,7 +6,7 @@ import {
     useSelected
 } from "slate-react";
 
-import { HelperType, TextType } from "@type/text";
+import { ElementType as Type } from "@type/editor";
 
 import styles from "./block.module.css";
 
@@ -16,21 +16,21 @@ export const Element = ({
 	attributes,
 }: RenderElementProps) => {
 	switch (element.type) {
-		case HelperType.THead:
+		case Type.THead:
 			return <thead {...attributes}>{children}</thead>;
-		case HelperType.TBody:
+		case Type.TBody:
 			return <tbody {...attributes}>{children}</tbody>;
-		case HelperType.Table:
+		case Type.Table:
 			return <table {...attributes}>{children}</table>;
-		case HelperType.TRow:
+		case Type.TRow:
 			return <tr {...attributes}>{children}</tr>;
-		case HelperType.TCell:
+		case Type.TCell:
 			return <td {...attributes}>{children}</td>;
-		case HelperType.THeader:
+		case Type.THeader:
 			return <th {...attributes}>{children}</th>;
-		case HelperType.ListItem:
+		case Type.ListItem:
 			return <li {...attributes}>{children}</li>;
-		case HelperType.Image:
+		case Type.Media:
 			return (
 				<ImageElement
 					attributes={attributes}
@@ -38,31 +38,31 @@ export const Element = ({
 					children={children}
 				/>
 			);
-		case TextType.Title:
+		case Type.Title:
 			return (
 				<h1 className={styles.title} {...attributes}>
 					{children}
 				</h1>
 			);
-		case TextType.Heading:
+		case Type.Heading:
 			return (
 				<h2 className={styles.heading} {...attributes}>
 					{children}
 				</h2>
 			);
-		case TextType.Subheading:
+		case Type.Subheading:
 			return (
 				<h3 className={styles.subheading} {...attributes}>
 					{children}
 				</h3>
 			);
 
-		case TextType.DashedList:
-		case TextType.BulletedList:
+		case Type.DashedList:
+		case Type.BulletedList:
 			return (
 				<ul
 					className={
-						element.type === TextType.BulletedList
+						element.type === Type.BulletedList
 							? styles.bulletedList
 							: styles.dashedList
 					}
@@ -71,19 +71,19 @@ export const Element = ({
 					<li>{children}</li>
 				</ul>
 			);
-		case TextType.NumberedList:
+		case Type.NumberedList:
 			return (
 				<ol className={styles.numberedList} {...attributes}>
 					<li>{children}</li>
 				</ol>
 			);
-		case TextType.Monospaced:
+		case Type.Monospaced:
 			return (
 				<p className={styles.monoscaped} {...attributes}>
 					{children}
 				</p>
 			);
-		case TextType.Body:
+		case Type.Body:
 		default:
 			return (
 				<p className={styles.body} {...attributes}>
@@ -137,7 +137,7 @@ export const ImageElement = ({
 		<div {...attributes}>
 			{children}
 			<img
-				src={element.url}
+				src={element.type}
 				className={cn(styles.image, {
 					[styles.selected]: selected && focused,
 				})}

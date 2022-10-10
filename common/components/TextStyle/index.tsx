@@ -8,8 +8,8 @@ import cn from "classnames";
 import { HTMLAttributes } from "react";
 
 import Icon from "@components/Icon";
+import { Annotations } from "@type/editor/element";
 import { IconName } from "@type/icons";
-import { Annotations } from "@type/text";
 
 import styles from "./textStyle.module.css";
 
