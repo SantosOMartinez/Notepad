@@ -1,12 +1,13 @@
 .container {
 	display: grid;
-	grid-template-rows: max-content 1fr;
-	row-gap: 1rem;
-	padding: 0 1rem 0.5rem;
+	row-gap: 0.25rem;
 	position: relative;
+	grid-template-rows: max-content 1fr;
+	height: calc(100vh - 50px - 0.25rem);
 }
 
 .date {
+	padding: 0.5rem 0;
 	color: var(--subtitle);
 	text-align: center;
 	opacity: 0.75;
@@ -14,14 +15,11 @@
 	font-weight: 400;
 	pointer-events: none;
 	user-select: none;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
 }
 
 .editor {
-	padding-top: calc(0.5rem + 14px);
+	padding: 0 1rem 4rem;
 	font-family: Inter;
 	font-size: 0.875rem;
+	overflow: auto;
 }

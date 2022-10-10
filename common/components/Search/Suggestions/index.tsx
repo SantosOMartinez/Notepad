@@ -1,38 +1,35 @@
+import { Button } from "ariakit/Button";
+import { ComboboxPopover, ComboboxPopoverOptions } from "ariakit/combobox";
 import cn from "classnames";
 
 import Icon from "@components/Icon";
-import ModalCard from "@components/ModalCard";
+import popoverStyles from "@components/Menu/menu.module.css";
 import { Suggestion } from "@type/search";
 
 import styles from "./suggestions.module.css";
 
-interface Props {
+interface Props extends ComboboxPopoverOptions {
 	suggestions?: Suggestion[];
 	visible?: boolean;
 	onClick?: (selectd: number) => void;
 }
 
-export default ({ suggestions = [], visible, onClick = () => {} }: Props) => {
+export default ({ suggestions = [], onClick = () => {}, state }: Props) => {
 	return (
-		<ModalCard
-			className={cn(styles.suggestions, { [styles.visible]: visible })}
-			onClick={(e) => {
-				e.stopPropagation();
-			}}
-		>
+		<ComboboxPopover state={state} portal className={popoverStyles.popover}>
 			<p className={styles.title}>Suggested Searches</p>
 			<span className={styles.scrollbar}>
 				{suggestions.map(({ icon, name }, i) => (
-					<button
+					<Button
 						className={styles.suggestion}
 						key={i}
-						onClick={(e) => onClick(i)}
+						onClick={() => onClick(i)}
 					>
 						<Icon icon={icon} />
 						<p>{name}</p>
-					</button>
+					</Button>
 				))}
 			</span>
-		</ModalCard>
+		</ComboboxPopover>
 	);
 };

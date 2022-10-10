@@ -1,16 +1,3 @@
-.suggestions {
-	user-select: none;
-	position: absolute;
-	right: 0;
-	display: grid;
-	grid-template-rows: max-content 1fr;
-	margin-top: 0.125rem;
-
-	/* Rules to hide dropdown */
-	opacity: 0;
-	pointer-events: none;
-}
-
 .visible {
 	opacity: 1;
 	transition: var(--transition);
@@ -23,6 +10,7 @@
 	margin-left: 0.25rem;
 	margin-bottom: 0.5rem;
 	font-size: 12px;
+	user-select: none;
 }
 
 .scrollbar {
@@ -37,7 +25,8 @@
 	justify-items: flex-start;
 	grid-template-columns: max-content 1fr;
 	column-gap: 0.5rem;
-	padding: 0.25rem;
+	padding: 0.25rem 0.5rem;
+
 	border-radius: 0.25rem;
 	background: none;
 	border: none;

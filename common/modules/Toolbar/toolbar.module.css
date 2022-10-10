@@ -5,6 +5,8 @@
 	column-gap: 0.25rem;
 	align-items: center;
 	padding-bottom: 0.25rem;
+	background-color: var(--toolbar);
+	z-index: 1;
 }
 
 .left {

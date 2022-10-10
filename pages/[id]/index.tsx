@@ -37,9 +37,7 @@ export default () => {
 				<List active={id as string} list={list} />
 				<Settings />
 			</div>
-			<div className={styles.right}>
-				<Editor date={list.find((note) => note.id === id)?.date} />
-			</div>
+			<Editor date={list.find((note) => note.id === id)?.date} />
 		</ListView>
 	);
 };

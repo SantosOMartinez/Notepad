@@ -9,7 +9,8 @@
 	padding-bottom: 0.25rem;
 	content: "";
 	transition: box-shadow calc(2 * var(--transition));
-	z-index: -1;
+	pointer-events: none;
+	user-select: none;
 }
 
 .hover::before {
@@ -21,4 +22,5 @@
 }
 
 .right {
+	background-color: var(--editor);
 }

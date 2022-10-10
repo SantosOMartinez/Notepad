@@ -1,8 +1,8 @@
+import { Combobox, useComboboxState } from "ariakit/combobox";
 import cn from "classnames";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 
 import Icon from "@components/Icon";
-import useOutsideClick from "@hooks/onOutsideClick";
 import useUpdateEffect from "@hooks/useUpdateEffect";
 import { Suggestion } from "@type/search";
 
@@ -39,30 +39,37 @@ export default ({
 	onChange = () => {},
 	onFilter = () => {},
 }: Props) => {
-	const [visible, setVisible] = useState(false);
-	const [focused, setFocused] = useState(false);
 	const [suggestion, setSuggestion] = useState<number>();
-
-	useUpdateEffect(() => onFilter(suggestion), [suggestion]);
-
-	const ref = useRef<HTMLDivElement>(null);
-	const inputRef = useRef<HTMLInputElement>(null);
-	const tagRef = useRef<HTMLButtonElement>(null);
-
-	useOutsideClick(ref, () => {
-		setVisible(false);
-		setFocused(false);
-		inputRef.current.blur();
+	const combobox = useComboboxState({
+		animated: true,
+		gutter: 8,
+		fitViewport: true,
+		overlap: true,
 	});
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const text = e.target.value;
-		onChange(text);
-		text ? setVisible(false) : setVisible(true);
+	const ref = combobox.anchorRef.current as HTMLInputElement;
+	const tagRef = useRef<HTMLButtonElement>(null);
+
+	useUpdateEffect(() => onFilter(suggestion), [suggestion]);
+	useEffect(() => onChange(combobox.value), [combobox.value]);
+
+	useEffect(
+		() => combobox.setOpen(suggestion === undefined && !combobox.value),
+		[suggestion, combobox.value]
+	);
+
+	const focusInput = () => {
+		if (!ref) return;
+
+		ref.focus();
+		ref.setSelectionRange(0, 0);
+		combobox.setOpen(suggestion === undefined && !combobox.value);
 	};
 
 	const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
 		const key = e.key;
+		if (handleEscapeKey(key)) return;
+
 		const start = e.currentTarget.selectionStart;
 		const end = e.currentTarget.selectionEnd;
 		const isValid = start === 0 && end === 0;
@@ -71,54 +78,36 @@ export default ({
 			tagRef.current.focus();
 	};
 
-	const handleEscapeKey = (e: KeyboardEvent<HTMLDivElement>) => {
-		if (e.key !== keys.esc) return;
+	const handleEscapeKey = (key: string) => {
+		if (key !== keys.esc) return false;
 
-		inputRef.current.value = "";
-		inputRef.current.focus();
+		combobox.setValue("");
+		focusInput();
 		setSuggestion(undefined);
-		setVisible(true);
+		return true;
 	};
 
 	const handleSuggestion = (e: KeyboardEvent<HTMLInputElement>) => {
 		const key = e.key;
 
 		if (key === keys.del || key === keys.backspace) {
-			inputRef.current.focus();
+			focusInput();
 			setSuggestion(undefined);
 			return;
 		}
 
-		if (key === keys.right || key === keys.up || key === keys.down) {
-			inputRef.current.focus();
-			return;
-		}
-
-		inputRef.current.focus();
-		inputRef.current.setSelectionRange(0, 0);
-		setSuggestion(undefined);
+		focusInput();
 	};
 
 	return (
 		<div
-			className={cn(styles.wrapper, { [styles.focused]: focused })}
-			ref={ref}
-			onFocus={() =>
-				suggestion === undefined &&
-				!inputRef.current.value &&
-				setVisible(true)
-			}
-			onClick={() => {
-				inputRef.current.focus();
-				setFocused(true);
-			}}
-			onKeyDown={handleEscapeKey}
+			className={cn(styles.wrapper, {
+				[styles.focused]:
+					typeof document !== "undefined" &&
+					document.activeElement === ref,
+			})}
 		>
-			<div
-				className={cn(styles.search, {
-					[styles.visible]: visible,
-				})}
-			>
+			<div className={styles.search} onClick={() => ref.focus()}>
 				<Icon icon="search" />
 				{suggestion != null && (
 					<button
@@ -128,26 +117,35 @@ export default ({
 						onClick={(e) => {
 							e.currentTarget.focus();
 							e.stopPropagation();
-							setFocused(true);
 						}}
 					>
 						{suggestions[suggestion].tag}
 					</button>
 				)}
-				<input
+				<Combobox
+					state={combobox}
 					placeholder="Search"
-					ref={inputRef}
-					onChange={handleChange}
 					onKeyDown={handleKeyDown}
-					onFocus={() => setFocused(true)}
+					onFocus={() =>
+						combobox.setOpen(
+							suggestion === undefined && !combobox.value
+						)
+					}
+					showOnMouseDown={
+						suggestion === undefined && !combobox.value
+					}
+					showOnKeyDown={suggestion === undefined && !combobox.value}
+					showOnChange={(e: ChangeEvent<HTMLInputElement>) =>
+						suggestion === undefined && !e.target.value
+					}
 				/>
 			</div>
 			<Suggestions
+				state={combobox}
 				suggestions={suggestions}
-				visible={visible && suggestion === undefined}
 				onClick={(selected) => {
-					inputRef.current.focus();
 					setSuggestion(selected);
+					ref.focus();
 				}}
 			/>
 		</div>
