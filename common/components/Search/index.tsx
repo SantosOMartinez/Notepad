@@ -39,7 +39,7 @@ export default ({
 	onChange = () => {},
 	onFilter = () => {},
 }: Props) => {
-	const [suggestion, setSuggestion] = useState<number>();
+	const [suggestion, setSuggestion] = useState<number>(null);
 	const combobox = useComboboxState({
 		animated: true,
 		gutter: 8,
@@ -54,7 +54,7 @@ export default ({
 	useEffect(() => onChange(combobox.value), [combobox.value]);
 
 	useUpdateEffect(
-		() => combobox.setOpen(suggestion === undefined && !combobox.value),
+		() => combobox.setOpen(suggestion === null && !combobox.value),
 		[suggestion, combobox.value]
 	);
 
@@ -63,7 +63,7 @@ export default ({
 
 		ref.focus();
 		ref.setSelectionRange(0, 0);
-		combobox.setOpen(suggestion === undefined && !combobox.value);
+		combobox.setOpen(suggestion === null && !combobox.value);
 	};
 
 	const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -74,7 +74,7 @@ export default ({
 		const end = e.currentTarget.selectionEnd;
 		const isValid = start === 0 && end === 0;
 		const isValidKey = key === keys.left || key === keys.backspace;
-		if (isValid && isValidKey && suggestion !== undefined)
+		if (isValid && isValidKey && suggestion !== null)
 			tagRef.current.focus();
 	};
 
@@ -82,7 +82,7 @@ export default ({
 		if (key !== keys.esc) return false;
 
 		combobox.setValue("");
-		setSuggestion(undefined);
+		setSuggestion(null);
 		focusInput();
 		return true;
 	};
@@ -94,7 +94,7 @@ export default ({
 
 		if (key === keys.del || key === keys.backspace) {
 			focusInput();
-			setSuggestion(undefined);
+			setSuggestion(null);
 			return;
 		}
 
@@ -111,7 +111,7 @@ export default ({
 		>
 			<div className={styles.search} onClick={() => ref.focus()}>
 				<Icon icon="search" />
-				{suggestion != null && (
+				{suggestion !== null && (
 					<button
 						className={cn(styles.tag, "caption")}
 						ref={tagRef}
@@ -129,16 +129,12 @@ export default ({
 					placeholder="Search"
 					onKeyDown={handleKeyDown}
 					onFocus={() =>
-						combobox.setOpen(
-							suggestion === undefined && !combobox.value
-						)
+						combobox.setOpen(suggestion === null && !combobox.value)
 					}
-					showOnMouseDown={
-						suggestion === undefined && !combobox.value
-					}
+					showOnMouseDown={suggestion === null && !combobox.value}
 					showOnKeyDown={suggestion === undefined && !combobox.value}
 					showOnChange={(e: ChangeEvent<HTMLInputElement>) =>
-						suggestion === undefined && !e.target.value
+						suggestion === null && !e.target.value
 					}
 				/>
 			</div>

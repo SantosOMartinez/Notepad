@@ -11,19 +11,33 @@ declare module "slate" {
 }
 
 export enum TextType {
-	Title = "Title",
-	Heading = "Heading",
-	Subheading = "Subheading",
-	Body = "Body",
+	Title = "title",
+	Heading = "heading",
+	Subheading = "subheading",
+	Body = "body",
 	Monospaced = "Monospaced",
-	BulletedList = "• Bulleted List",
-	DashedList = "- Dashed List",
-	NumberedList = "1. Numbered List",
+	BulletedList = "bulleted-list",
+	DashedList = "dashed-list",
+	NumberedList = "numbered-list",
 }
 
+export enum HelperType {
+	ListItem = "list-item",
+	Image = "image",
+	Table = "table",
+	TBody = "table-body",
+	THead = "table-head",
+	TRow = "table-row",
+	TCell = "table-cell",
+	THeader = "table-cell-head",
+}
+
+export type ElementType = TextType | HelperType;
+
 export interface TextElement {
-	type: TextType;
+	type: ElementType;
 	children?: Text[];
+	url?: string;
 }
 
 export interface Text {

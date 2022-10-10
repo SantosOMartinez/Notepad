@@ -1,6 +1,12 @@
-import { RenderElementProps, RenderLeafProps } from "slate-react";
+import cn from "classnames";
+import {
+    RenderElementProps,
+    RenderLeafProps,
+    useFocused,
+    useSelected
+} from "slate-react";
 
-import { TextType } from "@type/text";
+import { HelperType, TextType } from "@type/text";
 
 import styles from "./block.module.css";
 
@@ -10,6 +16,28 @@ export const Element = ({
 	attributes,
 }: RenderElementProps) => {
 	switch (element.type) {
+		case HelperType.THead:
+			return <thead {...attributes}>{children}</thead>;
+		case HelperType.TBody:
+			return <tbody {...attributes}>{children}</tbody>;
+		case HelperType.Table:
+			return <table {...attributes}>{children}</table>;
+		case HelperType.TRow:
+			return <tr {...attributes}>{children}</tr>;
+		case HelperType.TCell:
+			return <td {...attributes}>{children}</td>;
+		case HelperType.THeader:
+			return <th {...attributes}>{children}</th>;
+		case HelperType.ListItem:
+			return <li {...attributes}>{children}</li>;
+		case HelperType.Image:
+			return (
+				<ImageElement
+					attributes={attributes}
+					element={element}
+					children={children}
+				/>
+			);
 		case TextType.Title:
 			return (
 				<h1 className={styles.title} {...attributes}>
@@ -65,37 +93,55 @@ export const Element = ({
 	}
 };
 
-export const Leaf = ({ children, text, attributes }: RenderLeafProps) => {
-	const leaf = text?.annotations;
+export const Leaf = ({ children, text, attributes, leaf }: RenderLeafProps) => {
+	const mark = leaf?.annotations;
 
-	if (text?.link) {
-		children = (
-			<a
-				href={text.link.url}
-				{...attributes}
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				{children}
-			</a>
-		);
-	}
-
-	if (leaf?.bold) {
+	if (mark?.bold) {
 		children = <strong {...attributes}>{children}</strong>;
 	}
 
-	if (leaf?.strikethrough) {
+	if (mark?.strikethrough) {
 		children = <s {...attributes}>{children}</s>;
 	}
 
-	if (leaf?.italic) {
+	if (mark?.italic) {
 		children = <em {...attributes}>{children}</em>;
 	}
 
-	if (leaf?.underline) {
+	if (mark?.underline) {
 		children = <u {...attributes}>{children}</u>;
 	}
 
-	return <span {...attributes}>{children}</span>;
+	return leaf?.link ? (
+		<a
+			href={text.link.url}
+			{...attributes}
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			{children}
+		</a>
+	) : (
+		<span {...attributes}>{children}</span>
+	);
+};
+
+export const ImageElement = ({
+	attributes,
+	children,
+	element,
+}: RenderElementProps) => {
+	const selected = useSelected();
+	const focused = useFocused();
+	return (
+		<div {...attributes}>
+			{children}
+			<img
+				src={element.url}
+				className={cn(styles.image, {
+					[styles.selected]: selected && focused,
+				})}
+			/>
+		</div>
+	);
 };

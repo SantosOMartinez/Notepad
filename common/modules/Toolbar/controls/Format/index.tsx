@@ -15,7 +15,16 @@ import { Annotations, TextType } from "@type/text";
 
 import styles from "./format.module.css";
 
-const options = Object.values(TextType);
+const options = [
+	{ value: TextType.Title, name: "Title" },
+	{ value: TextType.Heading, name: "Heading" },
+	{ value: TextType.Subheading, name: "Subheading" },
+	{ value: TextType.Body, name: "Body" },
+	{ value: TextType.Monospaced, name: "Monospaced" },
+	{ value: TextType.BulletedList, name: "• Bulleted List" },
+	{ value: TextType.DashedList, name: "- Dashed List" },
+	{ value: TextType.NumberedList, name: "1. Numbered List" },
+];
 
 const baseAnnotations = {
 	bold: false,
@@ -87,13 +96,13 @@ export const FormatContext = ({
 		<div className={styles.container}>
 			<TextStyle annotations={annotations} {...events} />
 			<SelectList state={select} className={styles.list}>
-				{options.map((value, i) => (
+				{options.map(({ value, name }, i) => (
 					<SelectItem
 						selected={select.value === value}
 						value={value}
 						key={i}
 					>
-						{value}
+						{name}
 					</SelectItem>
 				))}
 			</SelectList>
