@@ -29,18 +29,24 @@ const format = (date: Date) =>
 const initialValue: Descendant[] = [
 	{
 		type: TextType.Title,
-		children: [{ text: "Title" }],
+		children: [{ text: "Apple Notes " }],
 	},
 	{
 		type: TextType.Body,
 		children: [
-			{ text: "This is a recreation of " },
+			{ text: "This is a " },
+			{ text: "recreation", annotations: { bold: true } },
+			{ text: " of " },
+
 			{
 				text: "Apple Notes",
 				link: {
 					url: "https://apps.apple.com/us/app/notes/id1110145109",
 				},
 			},
+			{ text: " on the " },
+			{ text: "web", annotations: { underline: true } },
+			{ text: "." },
 		],
 	},
 	{
