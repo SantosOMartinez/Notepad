@@ -22,4 +22,5 @@
 	font-family: Inter;
 	font-size: 0.875rem;
 	overflow: auto;
+	overscroll-behavior: contain;
 }

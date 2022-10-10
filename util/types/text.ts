@@ -1,4 +1,16 @@
-export enum BlockStyle {
+import { BaseEditor } from "slate";
+import { ReactEditor } from "slate-react";
+
+// Override Slate Js text definitions.
+declare module "slate" {
+	interface CustomTypes {
+		Editor: BaseEditor & ReactEditor;
+		Element: TextElement;
+		Text: Text;
+	}
+}
+
+export enum TextType {
 	Title = "Title",
 	Heading = "Heading",
 	Subheading = "Subheading",
@@ -9,31 +21,27 @@ export enum BlockStyle {
 	NumberedList = "1. Numbered List",
 }
 
-export enum TextType {
-	Bold = "Bold",
-	Italic = "Italic",
-	Underline = "Underline",
-	Strikethrough = "Strikethrough",
+export interface TextElement {
+	type: TextType;
+	children?: Text[];
 }
 
 export interface Text {
-	type: TextType;
-	content: string;
+	text: string;
 	link?: Link;
-	annotations: Annotations;
+	annotations?: Annotations;
+	color?: Color;
 }
 
 export interface Link {
 	url: string;
-	type: "url" | "";
 }
 
 export interface Annotations {
-	bold: Boolean;
-	color: Color;
-	italic: Boolean;
-	strikethrough: Boolean;
-	underline: Boolean;
+	bold?: boolean;
+	italic?: boolean;
+	strikethrough?: boolean;
+	underline?: boolean;
 }
 
 export enum Color {

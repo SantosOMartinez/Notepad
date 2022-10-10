@@ -40,11 +40,13 @@
 }
 
 .suggestion > svg {
+	--svg-size: 0.938rem;
+
 	fill: var(--subtitle);
-	height: 0.875rem;
-	width: 0.875rem;
-	min-height: 0.875rem;
-	min-width: 0.875rem;
+	height: var(--svg-size);
+	width: var(--svg-size);
+	min-height: var(--svg-size);
+	min-width: var(--svg-size);
 }
 
 .suggestion:hover > svg,

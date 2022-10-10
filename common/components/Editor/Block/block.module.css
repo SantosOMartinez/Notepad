@@ -1,0 +1,45 @@
+.title {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 32px;
+	letter-spacing: -0.03em;
+}
+
+.heading {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	letter-spacing: -0.02em;
+}
+
+.subheading {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	/* identical to box height, or 133% */
+	letter-spacing: -0.01em;
+}
+
+.body {
+	font-family: Inter;
+	font-size: 14px;
+}
+
+.monospaced {
+	font-family: monospace, monospace;
+	letter-spacing: 0.03em;
+}
+
+.bulletList {
+	list-style-type: circle;
+}
+
+.dashedList {
+	list-style-type: "— ";
+}
+
+.numberedList {
+}
+
+.listItem {
+}

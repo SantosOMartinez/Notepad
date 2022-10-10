@@ -9,6 +9,7 @@ import { HTMLAttributes } from "react";
 
 import Icon from "@components/Icon";
 import { IconName } from "@type/icons";
+import { Annotations } from "@type/text";
 
 import styles from "./textStyle.module.css";
 
@@ -32,27 +33,23 @@ const Item = ({ icon, children, active, ...props }: ItemProps) => {
 };
 
 interface Props {
-	bold?: boolean;
-	italic?: boolean;
-	underline?: boolean;
-	strikethrough?: boolean;
-
+	annotations?: Annotations;
 	onBold?: () => void;
 	onItalic?: () => void;
 	onUnderline?: () => void;
 	onStrikethrough?: () => void;
 }
 
-export default (props: Props) => {
+export default ({ annotations, ...events }: Props) => {
 	const toolbar = useToolbarState();
 
-	const { bold, italic, underline, strikethrough } = props;
+	const { bold, italic, underline, strikethrough } = annotations;
 	const {
 		onBold = () => {},
 		onItalic = () => {},
 		onUnderline = () => {},
 		onStrikethrough = () => {},
-	} = props;
+	} = events;
 
 	return (
 		<Toolbar state={toolbar} className={styles.toolbar}>
