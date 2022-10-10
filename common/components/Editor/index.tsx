@@ -1,4 +1,3 @@
-import cn from "classnames";
 import { useState } from "react";
 import { BaseEditor, createEditor, Descendant } from "slate";
 import { Editable, ReactEditor, Slate, withReact } from "slate-react";

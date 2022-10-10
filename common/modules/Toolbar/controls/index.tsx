@@ -14,7 +14,6 @@ const menuConfig = {
 
 /*
     TODO: Finish creating Button visuals for:
-    - Format
     - Collaborate
     - Copy
 */

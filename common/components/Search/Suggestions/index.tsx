@@ -1,6 +1,5 @@
 import { Button } from "ariakit/Button";
 import { ComboboxPopover, ComboboxPopoverOptions } from "ariakit/combobox";
-import cn from "classnames";
 
 import Icon from "@components/Icon";
 import popoverStyles from "@components/Menu/menu.module.css";

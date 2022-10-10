@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode, useEffect, useState } from "react";
+import { HTMLAttributes, useState } from "react";
 
 import Button from "@components/Button";
 import useUpdateEffect from "@hooks/useUpdateEffect";
