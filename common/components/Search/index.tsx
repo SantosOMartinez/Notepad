@@ -53,7 +53,7 @@ export default ({
 	useUpdateEffect(() => onFilter(suggestion), [suggestion]);
 	useEffect(() => onChange(combobox.value), [combobox.value]);
 
-	useEffect(
+	useUpdateEffect(
 		() => combobox.setOpen(suggestion === undefined && !combobox.value),
 		[suggestion, combobox.value]
 	);
@@ -82,13 +82,15 @@ export default ({
 		if (key !== keys.esc) return false;
 
 		combobox.setValue("");
-		focusInput();
 		setSuggestion(undefined);
+		focusInput();
 		return true;
 	};
 
 	const handleSuggestion = (e: KeyboardEvent<HTMLInputElement>) => {
 		const key = e.key;
+
+		if (handleEscapeKey(key)) return;
 
 		if (key === keys.del || key === keys.backspace) {
 			focusInput();
