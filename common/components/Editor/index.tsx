@@ -15,7 +15,7 @@ import { ElementType as Type } from "@type/editor";
 
 import { Element, Leaf } from "./Block";
 import styles from "./editor.module.css";
-import { toggleMark, withHtml, withImages, withTables } from "./util";
+import { toggleAnnotation, withHtml, withImages, withTables } from "./util";
 
 interface Props {
 	date?: Date;
@@ -37,7 +37,7 @@ const initialValue: Descendant[] = [
 		type: Type.Body,
 		children: [
 			{ text: "This is a " },
-			{ text: "recreation", annotations: { bold: true } },
+			{ text: "recreation", bold: true },
 			{ text: " of " },
 
 			{
@@ -47,28 +47,23 @@ const initialValue: Descendant[] = [
 				},
 			},
 			{ text: " on the " },
-			{ text: "web", annotations: { underline: true } },
+			{ text: "web", underline: true },
 			{ text: "." },
 		],
 	},
 	{
 		type: Type.DashedList,
-		children: [
-			{ text: "Dashed List", annotations: { strikethrough: true } },
-		],
+		children: [{ text: "Dashed List", strikethrough: true }],
 	},
 	{
 		type: Type.BulletedList,
-		children: [
-			{ text: "Bullet " },
-			{ text: "List", annotations: { underline: true } },
-		],
+		children: [{ text: "Bullet " }, { text: "List", underline: true }],
 	},
 	{
 		type: Type.NumberedList,
 		children: [
 			{ text: "Number " },
-			{ text: "List", annotations: { bold: true, underline: true } },
+			{ text: "List", bold: true, underline: true },
 		],
 	},
 ];
@@ -104,8 +99,8 @@ export default ({ date = new Date() }: Props) => {
 		for (const hotkey in HOTKEYS) {
 			if (isHotkey(hotkey, e)) {
 				e.preventDefault();
-				const mark = HOTKEYS[hotkey];
-				toggleMark(editor, mark);
+				const annotation = HOTKEYS[hotkey];
+				toggleAnnotation(editor, annotation);
 			}
 		}
 	};

@@ -274,17 +274,20 @@ export const toggleBlock = (editor: CustomTypes["Editor"], format) => {
 	}
 };
 
-export const toggleMark = (editor: CustomTypes["Editor"], format) => {
-	//TODO: Implement annotation toggle.
+export const isAnnotationActive = (editor: Editor, format: keyof Text) => {
+	const [match] = Editor.nodes(editor, {
+		match: (n) => Text.isText(n) && !!n[format],
+		mode: "all",
+	});
+	return !!match;
+};
+
+export const toggleAnnotation = (editor: Editor, format: keyof Text) => {
+	const isActive = isAnnotationActive(editor, format);
 	Transforms.setNodes(
 		editor,
-		{
-			annotations: { [format]: true },
-		},
-		{
-			match: (n) => Text.isText(n),
-			split: true,
-		}
+		{ [format]: isActive ? null : true },
+		{ match: Text.isText, split: true }
 	);
 };
 

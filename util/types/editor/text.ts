@@ -1,7 +1,6 @@
-export interface Text {
+export interface Text extends Annotations {
 	text: string;
 	link?: Link;
-	annotations?: Annotations;
 	color?: Color;
 }
 

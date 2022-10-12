@@ -94,21 +94,19 @@ export const Element = ({
 };
 
 export const Leaf = ({ children, text, attributes, leaf }: RenderLeafProps) => {
-	const mark = leaf?.annotations;
-
-	if (mark?.bold) {
+	if (leaf?.bold) {
 		children = <strong {...attributes}>{children}</strong>;
 	}
 
-	if (mark?.strikethrough) {
+	if (leaf?.strikethrough) {
 		children = <s {...attributes}>{children}</s>;
 	}
 
-	if (mark?.italic) {
+	if (leaf?.italic) {
 		children = <em {...attributes}>{children}</em>;
 	}
 
-	if (mark?.underline) {
+	if (leaf?.underline) {
 		children = <u {...attributes}>{children}</u>;
 	}
 
