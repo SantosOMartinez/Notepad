@@ -1,11 +1,5 @@
 import isHotkey from "is-hotkey";
-import {
-    KeyboardEvent,
-    useCallback,
-    useEffect,
-    useMemo,
-    useState
-} from "react";
+import { KeyboardEvent, useCallback, useMemo, useState } from "react";
 import { createEditor, Descendant } from "slate";
 import { withHistory } from "slate-history";
 import { Editable, Slate, withReact } from "slate-react";
@@ -15,7 +9,7 @@ import { ElementType as Type } from "@type/editor";
 
 import { Element, Leaf } from "./Block";
 import styles from "./editor.module.css";
-import { toggleAnnotation, withHtml, withImages, withTables } from "./util";
+import { toggleMark, withImages, withTables } from "./util";
 
 interface Props {
 	date?: Date;
@@ -100,7 +94,7 @@ export default ({ date = new Date() }: Props) => {
 			if (isHotkey(hotkey, e)) {
 				e.preventDefault();
 				const annotation = HOTKEYS[hotkey];
-				toggleAnnotation(editor, annotation);
+				toggleMark(editor, annotation);
 			}
 		}
 	};

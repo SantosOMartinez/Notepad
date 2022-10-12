@@ -19,96 +19,6 @@ const LIST_TYPES: Type[] = [
 	Type.NumberedList,
 ];
 
-const ELEMENT_TAGS = {
-	A: (el) => ({ type: "link", url: el.getAttribute("href") }),
-	BLOCKQUOTE: () => ({ type: "quote" }),
-	H1: () => ({ type: "heading-one" }),
-	H2: () => ({ type: "heading-two" }),
-	H3: () => ({ type: "heading-three" }),
-	H4: () => ({ type: "heading-four" }),
-	H5: () => ({ type: "heading-five" }),
-	H6: () => ({ type: "heading-six" }),
-	IMG: (el) => ({ type: "image", url: el.getAttribute("src") }),
-	LI: () => ({ type: "list-item" }),
-	OL: () => ({ type: "numbered-list" }),
-	P: () => ({ type: "paragraph" }),
-	PRE: () => ({ type: "code" }),
-	UL: () => ({ type: "bulleted-list" }),
-	TABLE: () => ({ type: "table" }),
-	TBODY: () => ({ type: "tbody" }),
-	THEAD: () => ({ type: "thead" }),
-	TR: () => ({ type: "table-row" }),
-	TD: () => ({ type: "table-cell" }),
-	TH: () => ({ type: "table-cell-header" }),
-	HEADER: () => ({ type: "header" }),
-	SECTION: () => ({ type: "section" }),
-};
-
-// COMPAT: `B` is omitted here because Google Docs uses `<b>` in weird ways.
-const TEXT_TAGS = {
-	CODE: () => ({ code: true }),
-	DEL: () => ({ strikethrough: true }),
-	EM: () => ({ italic: true }),
-	I: () => ({ italic: true }),
-	S: () => ({ strikethrough: true }),
-	STRONG: () => ({ bold: true }),
-	U: () => ({ underline: true }),
-};
-
-export const deserialize = (el: Node, mAttrs = {}) => {
-	console.log("deserialize:", el, el.nodeType, el.nodeName);
-	if (el.nodeType === 3) {
-		return el.textContent;
-	} else if (el.nodeType !== 1) {
-		return null;
-	} else if (el.nodeName === "BR") {
-		return "\n";
-	}
-
-	const { nodeName } = el;
-	let parent = el;
-
-	if (el.childNodes[0]) {
-		console.log(
-			"deserialize:sub",
-			el.childNodes[0],
-			el.childNodes[0].nodeName
-		);
-	}
-	let children = [];
-	if (nodeName === "PRE") {
-		if (el.childNodes[0] && el.childNodes[0].nodeName === "CODE") {
-			parent = el.childNodes[0];
-		}
-		console.log("deserialize:pre:", parent, parent.childNodes);
-		children = Array.from(parent.childNodes).map((e) => {
-			return {
-				text: e.textContent,
-				code: true,
-			};
-		});
-	} else {
-		children = Array.from(parent.childNodes).map(deserialize).flat();
-	}
-
-	if (el.nodeName === "BODY") {
-		return jsx("fragment", {}, children);
-	}
-
-	if (ELEMENT_TAGS[nodeName]) {
-		const attrs = ELEMENT_TAGS[nodeName](el);
-
-		return jsx("element", attrs, children);
-	}
-
-	if (TEXT_TAGS[nodeName]) {
-		const attrs = TEXT_TAGS[nodeName](el);
-		return children.map((child) => jsx("text", attrs, child));
-	}
-
-	return children;
-};
-
 const fnRemoteImage = (editor, files) => {
 	for (const file of files) {
 		const [mime] = file.type.split("/");
@@ -228,33 +138,6 @@ export const withTables = (editor) => {
 	return editor;
 };
 
-export const withHtml = (editor) => {
-	const { insertData, isInline, isVoid } = editor;
-
-	editor.isInline = (element: TextElement) => {
-		return isInline(element);
-	};
-
-	editor.isVoid = (element) => {
-		return element.type === Type.Media ? true : isVoid(element);
-	};
-
-	editor.insertData = (data) => {
-		const html = data.getData("text/html");
-
-		if (html) {
-			const parsed = new DOMParser().parseFromString(html, "text/html");
-			const fragment = deserialize(parsed.body);
-			Transforms.insertFragment(editor, fragment as N[]);
-			return;
-		}
-
-		insertData(data);
-	};
-
-	return editor;
-};
-
 export const toggleBlock = (editor: CustomTypes["Editor"], format) => {
 	const isActive = isBlockActive(editor, format);
 	const isList = LIST_TYPES.includes(format);
@@ -291,14 +174,31 @@ export const toggleAnnotation = (editor: Editor, format: keyof Text) => {
 	);
 };
 
-export const isBlockActive = (editor: CustomTypes["Editor"], format) => {
+export const isBlockActive = (editor: Editor, format) => {
 	const [match] = Editor.nodes(editor, {
 		match: (n: TextElement) => n.type === format,
 	});
 	return !!match;
 };
 
-export const isMarkActive = (editor: CustomTypes["Editor"], format) => {
+// ------
+export const isMarkActive = (
+	editor: Editor,
+	format: keyof Omit<Text, "text">
+): boolean => {
 	const marks = Editor.marks(editor);
 	return marks ? marks[format] === true : false;
+};
+
+export const toggleMark = (
+	editor: Editor,
+	format: keyof Omit<Text, "text">
+): void => {
+	const isActive = isMarkActive(editor, format);
+
+	if (isActive) {
+		Editor.removeMark(editor, format);
+	} else {
+		Editor.addMark(editor, format, true);
+	}
 };

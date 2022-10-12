@@ -94,6 +94,18 @@ export const Element = ({
 };
 
 export const Leaf = ({ children, text, attributes, leaf }: RenderLeafProps) => {
+	if (leaf.link)
+		return (
+			<a
+				href={text.link.url}
+				{...attributes}
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				{children}
+			</a>
+		);
+
 	if (leaf?.bold) {
 		children = <strong {...attributes}>{children}</strong>;
 	}
@@ -110,18 +122,7 @@ export const Leaf = ({ children, text, attributes, leaf }: RenderLeafProps) => {
 		children = <u {...attributes}>{children}</u>;
 	}
 
-	return leaf?.link ? (
-		<a
-			href={text.link.url}
-			{...attributes}
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			{children}
-		</a>
-	) : (
-		<span {...attributes}>{children}</span>
-	);
+	return <span {...attributes}>{children}</span>;
 };
 
 export const ImageElement = ({
