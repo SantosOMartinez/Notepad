@@ -1,11 +1,11 @@
 import isHotkey from "is-hotkey";
 import { KeyboardEvent, useCallback, useMemo, useState } from "react";
-import { createEditor, Descendant } from "slate";
+import { createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { Editable, Slate, withReact } from "slate-react";
 
 import { formatDate } from "@functions/date";
-import { ElementType as Type } from "@type/editor";
+import { initialDocument } from "@mockup/editor";
 
 import { Element, Leaf } from "./Block";
 import styles from "./editor.module.css";
@@ -22,46 +22,6 @@ const format = (date: Date) =>
 		timeStyle: "short",
 	});
 
-const initialValue: Descendant[] = [
-	{
-		type: Type.Title,
-		children: [{ text: "Apple Notes " }],
-	},
-	{
-		type: Type.Body,
-		children: [
-			{ text: "This is a " },
-			{ text: "recreation", bold: true },
-			{ text: " of " },
-
-			{
-				text: "Apple Notes",
-				link: {
-					url: "https://apps.apple.com/us/app/notes/id1110145109",
-				},
-			},
-			{ text: " on the " },
-			{ text: "web", underline: true },
-			{ text: "." },
-		],
-	},
-	{
-		type: Type.DashedList,
-		children: [{ text: "Dashed List", strikethrough: true }],
-	},
-	{
-		type: Type.BulletedList,
-		children: [{ text: "Bullet " }, { text: "List", underline: true }],
-	},
-	{
-		type: Type.NumberedList,
-		children: [
-			{ text: "Number " },
-			{ text: "List", bold: true, underline: true },
-		],
-	},
-];
-
 const HOTKEYS = {
 	"mod+b": "bold",
 	"mod+i": "italic",
@@ -72,7 +32,7 @@ const HOTKEYS = {
 export default ({ date = new Date() }: Props) => {
 	const renderElement = useCallback((props) => <Element {...props} />, []);
 	const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
-	const [content, setContent] = useState(initialValue);
+	const [content, setContent] = useState(initialDocument);
 
 	const editor = useMemo(
 		() => withImages(withTables(withReact(withHistory(createEditor())))),

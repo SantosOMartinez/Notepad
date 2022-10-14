@@ -8,7 +8,7 @@ import Spacer from "@components/Spacer";
 import Wrap from "@components/Wrap";
 import { suggestions } from "@constants/text";
 
-import { Copy, Lock, Photos } from "./controls";
+import { Copy, Lock, Photos, Sidebar } from "./controls";
 import Format from "./controls/Format";
 import Link from "./controls/Link";
 import More from "./controls/More";
@@ -18,7 +18,7 @@ interface Props extends HTMLAttributes<HTMLElement> {}
 
 export const Left = (props: Props) => (
 	<section className={styles.left} {...props}>
-		<Button icon="panel-left" />
+		<Sidebar />
 		<Spacer />
 		<Multiselect
 			defaultSelected={0}

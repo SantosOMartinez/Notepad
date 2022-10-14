@@ -1,7 +1,10 @@
 import { useMenuState } from "ariakit/menu";
+import { useSetRecoilState } from "recoil";
 
+import Button from "@components/Button";
 import Icon from "@components/Icon";
 import { Menu, MenuButton } from "@components/Menu";
+import { sidebarState } from "@state/layout";
 
 import { Copy as C, Lock as L, Media as M } from "./contextMenus";
 
@@ -60,4 +63,10 @@ export const Copy = (props) => {
 			</Menu>
 		</div>
 	);
+};
+
+export const Sidebar = () => {
+	const setOpen = useSetRecoilState(sidebarState);
+
+	return <Button icon="panel-left" onClick={() => setOpen((s) => !s)} />;
 };

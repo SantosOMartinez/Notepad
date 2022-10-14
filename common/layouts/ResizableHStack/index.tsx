@@ -13,6 +13,7 @@ interface Size {
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	maxSizes?: Size;
 	minSizes?: Size;
+	dividerClassName?: string;
 }
 
 export default ({
@@ -20,6 +21,7 @@ export default ({
 	className,
 	minSizes,
 	maxSizes,
+	dividerClassName,
 	...props
 }: Props) => {
 	return (
@@ -36,7 +38,10 @@ export default ({
 					{Children.toArray(children).map((child, i) =>
 						i === 1 ? (
 							<Fragment key="divider">
-								<Divider {...getGutterProps("column", 1)} />
+								<Divider
+									{...getGutterProps("column", 1)}
+									className={dividerClassName}
+								/>
 								{child}
 							</Fragment>
 						) : (

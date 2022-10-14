@@ -17,6 +17,7 @@
 			"@hooks/*": ["util/hooks/*"],
 			"@type/*": ["util/types/*"],
 			"@constants/*": ["util/constants/*"],
+			"@mockup/*": ["mockup/*"],
 			// Public
 			"@assets/*": ["public/assets/*"],
 			"@fonts/*": ["public/fonts/*"]

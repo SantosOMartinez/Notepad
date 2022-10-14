@@ -1,8 +1,9 @@
 import cn from "classnames";
+import { HTMLAttributes } from "react";
 
 import styles from "./divider.module.css";
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
 	/**
 	 * Add padding to the horizontal axis.
 	 */
@@ -13,14 +14,18 @@ interface Props {
 	vertical?: boolean;
 }
 
-export default ({ horizontal, vertical, ...props }: Props) => {
+export default ({ horizontal, vertical, className, ...props }: Props) => {
 	return (
 		<div
 			{...props}
-			className={cn(styles.divider, {
-				[styles.vertical]: vertical,
-				[styles.horizontal]: horizontal,
-			})}
+			className={cn(
+				styles.divider,
+				{
+					[styles.vertical]: vertical,
+					[styles.horizontal]: horizontal,
+				},
+				className
+			)}
 		/>
 	);
 };

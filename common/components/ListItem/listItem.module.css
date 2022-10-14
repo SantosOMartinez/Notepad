@@ -20,7 +20,8 @@
 	pointer-events: none;
 }
 
-.active::after {
+.active::after,
+.item:last-child::after {
 	background-color: transparent;
 }
 

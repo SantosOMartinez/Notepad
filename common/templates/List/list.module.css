@@ -3,6 +3,7 @@
 	padding-right: 0.25rem;
 	overflow: auto;
 	height: calc(100% - 1rem);
+	user-select: none;
 }
 
 .none {
