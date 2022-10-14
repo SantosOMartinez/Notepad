@@ -3,7 +3,6 @@ import { HTMLAttributes, useState } from "react";
 
 import Button from "@components/Button";
 import Multiselect from "@components/Multiselect";
-import Search from "@components/Search";
 import Spacer from "@components/Spacer";
 import Wrap from "@components/Wrap";
 import { suggestions } from "@constants/text";
@@ -12,6 +11,7 @@ import { Copy, Lock, Photos, Sidebar } from "./controls";
 import Format from "./controls/Format";
 import Link from "./controls/Link";
 import More from "./controls/More";
+import Search from "./controls/Search";
 import styles from "./toolbar.module.css";
 
 interface Props extends HTMLAttributes<HTMLElement> {}
@@ -59,7 +59,7 @@ export const Right = (props: Props) => {
 					visible={wrapped}
 				/>
 			)}
-			<Search suggestions={suggestions} />
+			<Search />
 		</section>
 	);
 };

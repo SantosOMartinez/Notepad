@@ -47,7 +47,7 @@ export default () => {
 				</div>
 				<Editor
 					date={list.find((note) => note.id === id)?.date}
-					visible={!!id}
+					visible={!!id && list.length > 0}
 				/>
 			</Layout2>
 		</Layout3>

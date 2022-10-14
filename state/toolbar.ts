@@ -4,5 +4,5 @@ import { Search } from "@type/search";
 
 export const searchState = atom<Search>({
 	key: "searchState",
-	default: { text: "" },
+	default: { text: "", tag: null },
 });

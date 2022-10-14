@@ -17,5 +17,5 @@ export interface Suggestion {
 
 export interface Search {
 	text: string;
-	tag?: SearchTag;
+	tag: SearchTag | null;
 }
