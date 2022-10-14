@@ -7,6 +7,9 @@
 .folders {
 	width: 18rem;
 	height: 100%;
+	visibility: hidden;
+	transition: var(--transition);
+	opacity: 0;
 }
 
 .content {
@@ -23,4 +26,9 @@
 .open .content {
 	left: 18rem;
 	border-left: 1px solid var(--divider);
+}
+
+.open .folders {
+	visibility: visible;
+	opacity: 1;
 }

@@ -45,7 +45,10 @@ export default () => {
 					<List active={id as string} list={list} />
 					<Settings />
 				</div>
-				<Editor date={list.find((note) => note.id === id)?.date} />
+				<Editor
+					date={list.find((note) => note.id === id)?.date}
+					visible={!!id}
+				/>
 			</Layout2>
 		</Layout3>
 	);

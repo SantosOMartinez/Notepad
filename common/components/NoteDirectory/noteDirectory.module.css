@@ -26,7 +26,6 @@
 }
 
 .item {
-	outline: none;
 	border: none;
 	background-color: transparent;
 	display: grid;

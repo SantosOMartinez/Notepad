@@ -3,14 +3,14 @@ import { ComboboxPopover, ComboboxPopoverOptions } from "ariakit/combobox";
 
 import Icon from "@components/Icon";
 import popoverStyles from "@components/Menu/menu.module.css";
-import { Suggestion } from "@type/search";
+import { SearchTag, Suggestion } from "@type/search";
 
 import styles from "./suggestions.module.css";
 
 interface Props extends ComboboxPopoverOptions {
 	suggestions?: Suggestion[];
 	visible?: boolean;
-	onClick?: (selectd: number) => void;
+	onClick?: (selected: SearchTag) => void;
 }
 
 export default ({ suggestions = [], onClick = () => {}, state }: Props) => {
@@ -18,11 +18,11 @@ export default ({ suggestions = [], onClick = () => {}, state }: Props) => {
 		<ComboboxPopover state={state} portal className={popoverStyles.popover}>
 			<p className={styles.title}>Suggested Searches</p>
 			<span className={styles.scrollbar}>
-				{suggestions.map(({ icon, name }, i) => (
+				{suggestions.map(({ icon, name, tag }, i) => (
 					<Button
 						className={styles.suggestion}
 						key={i}
-						onClick={() => onClick(i)}
+						onClick={() => onClick(tag)}
 					>
 						<Icon icon={icon} />
 						<p>{name}</p>

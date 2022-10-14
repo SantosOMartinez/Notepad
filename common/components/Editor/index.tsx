@@ -1,3 +1,4 @@
+import cn from "classnames";
 import isHotkey from "is-hotkey";
 import { KeyboardEvent, useCallback, useMemo, useState } from "react";
 import { createEditor } from "slate";
@@ -13,6 +14,7 @@ import { toggleMark, withImages, withTables } from "./util";
 
 interface Props {
 	date?: Date;
+	visible?: boolean;
 }
 
 const format = (date: Date) =>
@@ -29,7 +31,7 @@ const HOTKEYS = {
 	"mod+s": "strikethrough",
 };
 
-export default ({ date = new Date() }: Props) => {
+export default ({ date = new Date(), visible = true }: Props) => {
 	const renderElement = useCallback((props) => <Element {...props} />, []);
 	const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
 	const [content, setContent] = useState(initialDocument);
@@ -62,7 +64,7 @@ export default ({ date = new Date() }: Props) => {
 	// TODO: Add support for list elements and their parent.
 	editor.children = content;
 	return (
-		<div className={styles.container}>
+		<div className={cn(styles.container, { [styles.visible]: visible })}>
 			<p className={styles.date}>{timestamp}</p>
 			<Slate
 				editor={editor}

@@ -4,7 +4,7 @@ import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 
 import Icon from "@components/Icon";
 import useUpdateEffect from "@hooks/useUpdateEffect";
-import { Suggestion } from "@type/search";
+import { SearchTag, Suggestion } from "@type/search";
 
 import styles from "./search.module.css";
 import Suggestions from "./Suggestions";
@@ -31,7 +31,7 @@ interface Props {
 	/**
 	 * When a suggestion is selected to be used in filtering.
 	 */
-	onFilter?: (suggestion: number) => void;
+	onFilter?: (tag: SearchTag) => void;
 }
 
 export default ({
@@ -39,7 +39,7 @@ export default ({
 	onChange = () => {},
 	onFilter = () => {},
 }: Props) => {
-	const [suggestion, setSuggestion] = useState<number>(null);
+	const [suggestion, setSuggestion] = useState<SearchTag>();
 	const combobox = useComboboxState({
 		animated: true,
 		gutter: 8,
@@ -48,13 +48,13 @@ export default ({
 	});
 
 	const ref = combobox.anchorRef.current as HTMLInputElement;
-	const tagRef = useRef<HTMLButtonElement>(null);
+	const tagRef = useRef<HTMLButtonElement>(undefined);
 
 	useUpdateEffect(() => onFilter(suggestion), [suggestion]);
 	useEffect(() => onChange(combobox.value), [combobox.value]);
 
 	useUpdateEffect(
-		() => combobox.setOpen(suggestion === null && !combobox.value),
+		() => combobox.setOpen(suggestion === undefined && !combobox.value),
 		[suggestion, combobox.value]
 	);
 
@@ -63,7 +63,7 @@ export default ({
 
 		ref.focus();
 		ref.setSelectionRange(0, 0);
-		combobox.setOpen(suggestion === null && !combobox.value);
+		combobox.setOpen(suggestion === undefined && !combobox.value);
 	};
 
 	const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -74,7 +74,7 @@ export default ({
 		const end = e.currentTarget.selectionEnd;
 		const isValid = start === 0 && end === 0;
 		const isValidKey = key === keys.left || key === keys.backspace;
-		if (isValid && isValidKey && suggestion !== null)
+		if (isValid && isValidKey && suggestion !== undefined)
 			tagRef.current.focus();
 	};
 
@@ -82,7 +82,7 @@ export default ({
 		if (key !== keys.esc) return false;
 
 		combobox.setValue("");
-		setSuggestion(null);
+		setSuggestion(undefined);
 		focusInput();
 		return true;
 	};
@@ -94,7 +94,7 @@ export default ({
 
 		if (key === keys.del || key === keys.backspace) {
 			focusInput();
-			setSuggestion(null);
+			setSuggestion(undefined);
 			return;
 		}
 
@@ -111,7 +111,7 @@ export default ({
 		>
 			<div className={styles.search} onClick={() => ref.focus()}>
 				<Icon icon="search" />
-				{suggestion !== null && (
+				{suggestion !== undefined && (
 					<button
 						className={cn(styles.tag, "caption")}
 						ref={tagRef}
@@ -121,7 +121,7 @@ export default ({
 							e.stopPropagation();
 						}}
 					>
-						{suggestions[suggestion].tag}
+						{suggestion}
 					</button>
 				)}
 				<Combobox
@@ -129,12 +129,16 @@ export default ({
 					placeholder="Search"
 					onKeyDown={handleKeyDown}
 					onFocus={() =>
-						combobox.setOpen(suggestion === null && !combobox.value)
+						combobox.setOpen(
+							suggestion === undefined && !combobox.value
+						)
 					}
-					showOnMouseDown={suggestion === null && !combobox.value}
+					showOnMouseDown={
+						suggestion === undefined && !combobox.value
+					}
 					showOnKeyDown={suggestion === undefined && !combobox.value}
 					showOnChange={(e: ChangeEvent<HTMLInputElement>) =>
-						suggestion === null && !e.target.value
+						suggestion === undefined && !e.target.value
 					}
 				/>
 			</div>

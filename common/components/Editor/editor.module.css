@@ -4,6 +4,12 @@
 	position: relative;
 	grid-template-rows: max-content 1fr;
 	height: calc(100vh - 50px - 0.25rem);
+
+	transition: opacity var(--transition);
+
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
 }
 
 .date {
@@ -23,4 +29,10 @@
 	font-size: 0.875rem;
 	overflow: auto;
 	overscroll-behavior: contain;
+}
+
+.visible {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: all;
 }
