@@ -1,16 +1,27 @@
 import cn from "classnames";
-import isHotkey from "is-hotkey";
-import { KeyboardEvent, useCallback, useMemo, useState } from "react";
-import { createEditor } from "slate";
-import { withHistory } from "slate-history";
-import { Editable, Slate, withReact } from "slate-react";
+import { EditorState } from "lexical";
+import { useRef } from "react";
 
 import { formatDate } from "@functions/date";
-import { initialDocument } from "@mockup/editor";
+import { CodeNode } from "@lexical/code";
+import { AutoLinkNode, LinkNode } from "@lexical/link";
+import { ListItemNode, ListNode } from "@lexical/list";
+import { AutoLinkPlugin } from "@lexical/react/LexicalAutoLinkPlugin";
+import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { ContentEditable } from "@lexical/react/LexicalContentEditable";
+import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
+import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
+import { EditorConfig } from "@type/editor";
 
-import { Element, Leaf } from "./Block";
 import styles from "./editor.module.css";
-import { toggleMark, withImages, withTables } from "./util";
+import AutoFocusPlugin from "./plugins/AutoFocus";
+import theme from "./theme";
 
 interface Props {
 	date?: Date;
@@ -24,61 +35,65 @@ const format = (date: Date) =>
 		timeStyle: "short",
 	});
 
-const HOTKEYS = {
-	"mod+b": "bold",
-	"mod+i": "italic",
-	"mod+u": "underline",
-	"mod+s": "strikethrough",
+const initialConfig: EditorConfig = {
+	namespace: "Notepad",
+	theme,
+	onError: (error) => console.log(error),
+	editorState: null,
+	nodes: [
+		ListNode,
+		ListItemNode,
+		LinkNode,
+		AutoLinkNode,
+		TableNode,
+		TableCellNode,
+		TableRowNode,
+		CodeNode,
+	],
 };
 
+const URL_MATCHER =
+	/((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+
+const MATCHERS = [
+	(text) => {
+		const match = URL_MATCHER.exec(text);
+		return (
+			match && {
+				index: match.index,
+				length: match[0].length,
+				text: match[0],
+				url: match[0],
+			}
+		);
+	},
+];
+
 export default ({ date = new Date(), visible = true }: Props) => {
-	const renderElement = useCallback((props) => <Element {...props} />, []);
-	const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
-	const [content, setContent] = useState(initialDocument);
-
-	const editor = useMemo(
-		() => withImages(withTables(withReact(withHistory(createEditor())))),
-		[]
-	);
-
+	const editorStateRef = useRef<EditorState>();
 	const timestamp = format(date);
 
-	const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-		const key = e.key;
+	const onChange = (editorState) => (editorStateRef.current = editorState);
 
-		if (key === "Tab") {
-			e.preventDefault();
-			editor.insertText("\t");
-			return;
-		}
-
-		for (const hotkey in HOTKEYS) {
-			if (isHotkey(hotkey, e)) {
-				e.preventDefault();
-				const annotation = HOTKEYS[hotkey];
-				toggleMark(editor, annotation);
-			}
-		}
-	};
-
-	// TODO: Add support for list elements and their parent.
-	editor.children = content;
 	return (
 		<div className={cn(styles.container, { [styles.visible]: visible })}>
 			<p className={styles.date}>{timestamp}</p>
-			<Slate
-				editor={editor}
-				value={content}
-				onChange={(newValue) => setContent(newValue)}
-			>
-				<Editable
-					spellCheck
-					className={styles.editor}
-					onKeyDown={onKeyDown}
-					renderElement={renderElement}
-					renderLeaf={renderLeaf}
+			<LexicalComposer initialConfig={initialConfig}>
+				<RichTextPlugin
+					contentEditable={
+						<ContentEditable className={styles.editor} />
+					}
+					placeholder={""}
 				/>
-			</Slate>
+				<OnChangePlugin onChange={onChange} />
+				<HistoryPlugin />
+				<AutoFocusPlugin />
+				<ListPlugin />
+				<LinkPlugin />
+				<CheckListPlugin />
+				<TablePlugin />
+				<AutoLinkPlugin matchers={MATCHERS} />
+			</LexicalComposer>
 		</div>
 	);
 };

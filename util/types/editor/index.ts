@@ -1,15 +1,15 @@
-import { BaseEditor } from "slate";
-import { ReactEditor } from "slate-react";
+import { EditorThemeClasses, Klass, LexicalEditor, LexicalNode } from "lexical";
 
-import { Element } from "./element";
-import { Text } from "./text";
+import { InitialEditorStateType } from "@lexical/react/LexicalComposer";
 
-declare module "slate" {
-	interface CustomTypes {
-		Editor: BaseEditor & ReactEditor;
-		Element: Element;
-		Text: Text;
-	}
+export interface EditorConfig {
+	editor__DEPRECATED?: LexicalEditor | null;
+	namespace: string;
+	nodes?: ReadonlyArray<Klass<LexicalNode>>;
+	onError: (error: Error, editor: LexicalEditor) => void;
+	editable?: boolean;
+	theme?: EditorThemeClasses;
+	editorState?: InitialEditorStateType;
 }
 
 export * from "./element";

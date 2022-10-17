@@ -26,7 +26,7 @@ export default () => {
 				setList(
 					Array.from({ length: 25 }, (_, i) => ({ id: String(i) }))
 				),
-			2 * 1000
+			0
 		);
 
 		return () => clearTimeout(timeout);
