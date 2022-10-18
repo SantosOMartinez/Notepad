@@ -1,7 +1,27 @@
 import { usePopoverState } from "ariakit/popover";
+import {
+    $getSelection,
+    $isRangeSelection,
+    $isRootOrShadowRoot,
+    COMMAND_PRIORITY_CRITICAL,
+    SELECTION_CHANGE_COMMAND
+} from "lexical";
+import { useCallback, useEffect, useState } from "react";
 
 import { Popover, PopoverDisclosure } from "@components/Menu";
+import { getSelectedNode } from "@functions/editor";
+import sanitizeUrl from "@functions/sanitizeUrl";
 import { useBrowserName } from "@hooks/useBrowserName";
+import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
+import {
+    useLexicalComposerContext
+} from "@lexical/react/LexicalComposerContext";
+import {
+    $findMatchingParent,
+    $getNearestBlockElementAncestorOrThrow,
+    $getNearestNodeOfType,
+    mergeRegister
+} from "@lexical/utils";
 
 import styles from "./link.module.css";
 
@@ -14,10 +34,59 @@ const exampleSite = {
 
 export default (props) => {
 	const popover = usePopoverState({ animated: true });
+	const [editor] = useLexicalComposerContext();
+	const [activeEditor, setActiveEditor] = useState(editor);
+
+	const [isLink, setIsLink] = useState(false);
 
 	const browser = useBrowserName();
 
 	const { title, thumbnail } = exampleSite;
+
+	const updateToolbar = useCallback(() => {
+		const selection = $getSelection();
+		if ($isRangeSelection(selection)) {
+			// Update links
+			const node = getSelectedNode(selection);
+			const parent = node.getParent();
+			if ($isLinkNode(parent) || $isLinkNode(node)) {
+				setIsLink(true);
+			} else {
+				setIsLink(false);
+			}
+		}
+	}, [activeEditor]);
+
+	useEffect(() => {
+		return editor.registerCommand(
+			SELECTION_CHANGE_COMMAND,
+			(_payload, newEditor) => {
+				updateToolbar();
+				setActiveEditor(newEditor);
+				return false;
+			},
+			COMMAND_PRIORITY_CRITICAL
+		);
+	}, [editor, updateToolbar]);
+
+	useEffect(() => {
+		return activeEditor.registerUpdateListener(({ editorState }) => {
+			editorState.read(() => {
+				updateToolbar();
+			});
+		});
+	}, [activeEditor, editor, updateToolbar]);
+
+	const insertLink = useCallback(() => {
+		if (!isLink) {
+			editor.dispatchCommand(
+				TOGGLE_LINK_COMMAND,
+				sanitizeUrl("https://")
+			);
+		} else {
+			editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
+		}
+	}, [editor, isLink]);
 
 	return (
 		<div {...props}>
@@ -30,7 +99,9 @@ export default (props) => {
 						<p className={styles.title}>{title}</p>
 						<p className={styles.description}>{browser}</p>
 					</div>
-					<button className={styles.button}>Add Link</button>
+					<button className={styles.button} onClick={insertLink}>
+						Add Link
+					</button>
 				</div>
 			</Popover>
 		</div>

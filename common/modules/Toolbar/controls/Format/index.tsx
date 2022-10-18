@@ -6,7 +6,8 @@ import {
     useSelectState
 } from "ariakit/select";
 import cn from "classnames";
-import { HTMLAttributes, useEffect, useState } from "react";
+import { FORMAT_TEXT_COMMAND } from "lexical";
+import { HTMLAttributes, useEffect } from "react";
 
 import Icon from "@components/Icon";
 import { Popover, PopoverDisclosure } from "@components/Menu";
@@ -14,6 +15,8 @@ import TextStyle from "@components/TextStyle";
 import { Annotations, ElementType as Type } from "@type/editor";
 
 import styles from "./format.module.css";
+import formatBlock from "./formatBlock";
+import useFormatUpdate from "./useFormatUpdate";
 
 const options = [
 	{ value: Type.Title, name: "Title" },
@@ -25,13 +28,6 @@ const options = [
 	{ value: Type.DashedList, name: "- Dashed List" },
 	{ value: Type.NumberedList, name: "1. Numbered List" },
 ];
-
-const baseAnnotations = {
-	bold: false,
-	italic: false,
-	underline: false,
-	strikethrough: false,
-};
 
 export default () => {
 	const popover = usePopoverState({ animated: true });
@@ -72,35 +68,46 @@ interface FormatContextProps {
 export const FormatContext = ({
 	onSelect = () => {},
 	defaultValue = Type.Body,
-	defaultAnnotations = baseAnnotations,
 }: FormatContextProps) => {
 	const select = useSelectState({
 		defaultValue,
 		open: true,
 	});
 
-	useEffect(() => onSelect(), [select.value]);
+	const { bold, italic, strikethrough, underline, activeEditor, editable } =
+		useFormatUpdate(select);
 
-	const [annotations, setAnnotations] = useState(defaultAnnotations);
+	const annotations: Annotations = {
+		bold,
+		italic,
+		strikethrough,
+		underline,
+	};
 
 	const events = {
-		onBold: () => setAnnotations((s) => ({ ...s, bold: !s.bold })),
-		onItalic: () => setAnnotations((s) => ({ ...s, italic: !s.italic })),
+		onBold: () => activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold"),
+		onItalic: () =>
+			activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic"),
 		onUnderline: () =>
-			setAnnotations((s) => ({ ...s, underline: !s.underline })),
+			activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline"),
 		onStrikethrough: () =>
-			setAnnotations((s) => ({ ...s, strikethrough: !s.strikethrough })),
+			activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough"),
 	};
 
 	return (
 		<div className={styles.container}>
 			<TextStyle annotations={annotations} {...events} />
-			<SelectList state={select} className={styles.list}>
+			<SelectList
+				state={select}
+				className={styles.list}
+				disabled={!editable}
+			>
 				{options.map(({ value, name }, i) => (
 					<SelectItem
 						selected={select.value === value}
 						value={value}
 						key={i}
+						onClick={onSelect}
 					>
 						{name}
 					</SelectItem>

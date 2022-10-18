@@ -41,6 +41,10 @@
 
 .monospaced {
 	font-family: monospace, monospace;
+	font-family: Inter;
+	font-size: 14px;
+	line-height: 14px;
+	font-weight: 400;
 	letter-spacing: 0.03em;
 }
 
@@ -53,6 +57,7 @@
 }
 
 .numberedList {
+	list-style-type: decimal;
 }
 
 .listItem {

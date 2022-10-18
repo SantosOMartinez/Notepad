@@ -1,41 +1,74 @@
-.code {
-}
-
-.link {
+.h1,
+.h2,
+.h3,
+.paragraph {
+	margin: 0 0 0.5rem;
 }
 
 .h1 {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 32px;
+	letter-spacing: -0.03em;
+	line-height: 32px;
 }
 
 .h2 {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	letter-spacing: -0.02em;
+	line-height: 20px;
 }
 
 .h3 {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	letter-spacing: -0.01em;
+	line-height: 16px;
 }
 
-.h4 {
+.paragraph,
+.bulletedList,
+.numberedList {
+	font-family: Inter;
+	font-size: 14px;
+	line-height: 14px;
+	font-weight: 400;
 }
 
-.h5 {
+.listItem {
 }
 
-.h6 {
+.listitemChecked {
 }
 
-.paragraph {
+.listitemUnchecked {
+}
+
+.numberedList,
+.bulletedList {
+	margin: 0.5rem 0;
+	padding-left: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	justify-content: center;
+}
+
+.numberedList {
+	list-style-type: decimal;
+}
+
+.bulletedList {
+	list-style-type: disc;
 }
 
 .image {
 }
 
 .table {
-}
-
-.base {
-	font-family: Inter;
-	font-size: 0.75rem;
-	color: var(--text);
-	font-weight: 400;
 }
 
 .bold {
@@ -75,4 +108,15 @@
 
 .underlineStrikethrough {
 	text-decoration: underline line-through;
+}
+
+.base {
+	font-family: Inter;
+}
+
+.code {
+}
+
+.link {
+	color: var(--accent);
 }

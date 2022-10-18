@@ -1,47 +1,21 @@
-import {
-    Editor,
-    EditorNodesOptions,
-    Node,
-    PropsCompare,
-    PropsMerge,
-    Range,
-    Transforms
-} from "slate";
+import { ElementNode, RangeSelection, TextNode } from "lexical";
 
-interface ModifyNodes<T extends Node> extends EditorNodesOptions<T> {
-	calculate?: (node: T) => Partial<T>;
+import { $isAtNodeEnd } from "@lexical/selection";
 
-	compare?: PropsCompare;
-	merge?: PropsMerge;
-	hanging?: boolean;
-	split?: boolean;
-}
-
-export const modifyNodes = <T extends Node>(
-	editor: Editor,
-	options: ModifyNodes<T>
-) => {
-	const getConfig = ({
-		compare,
-		hanging,
-		merge,
-		match,
-		split,
-		calculate,
-		...rest
-	}: ModifyNodes<T>) => ({
-		calculate,
-		eConfig: { ...rest, match },
-		tConfig: { compare, hanging, merge, split, match },
-	});
-
-	const { eConfig, tConfig, calculate } = getConfig(options);
-
-	const nodes = Editor.nodes(editor, eConfig);
-	const { selection } = editor;
-
-	for (const [node, path] of nodes) {
-		const at = Range.intersection(Editor.range(editor, path), selection);
-		Transforms.setNodes(editor, calculate(node), { ...tConfig, at });
+export function getSelectedNode(
+	selection: RangeSelection
+): TextNode | ElementNode {
+	const anchor = selection.anchor;
+	const focus = selection.focus;
+	const anchorNode = selection.anchor.getNode();
+	const focusNode = selection.focus.getNode();
+	if (anchorNode === focusNode) {
+		return anchorNode;
 	}
-};
+	const isBackward = selection.isBackward();
+	if (isBackward) {
+		return $isAtNodeEnd(focus) ? anchorNode : focusNode;
+	} else {
+		return $isAtNodeEnd(anchor) ? focusNode : anchorNode;
+	}
+}

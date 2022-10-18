@@ -3,9 +3,7 @@ import { EditorState } from "lexical";
 import { useRef } from "react";
 
 import { formatDate } from "@functions/date";
-import { AutoLinkPlugin } from "@lexical/react/LexicalAutoLinkPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
@@ -16,7 +14,8 @@ import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 
 import styles from "./editor.module.css";
 import AutoFocusPlugin from "./plugins/AutoFocus";
-import { initialConfig, MATCHERS } from "./util";
+import AutoLinkPlugin from "./plugins/AutoLink";
+import TabInsertPlugin from "./plugins/TabInsert";
 
 interface Props {
 	date?: Date;
@@ -39,22 +38,19 @@ export default ({ date = new Date(), visible = true }: Props) => {
 	return (
 		<div className={cn(styles.container, { [styles.visible]: visible })}>
 			<p className={styles.date}>{timestamp}</p>
-			<LexicalComposer initialConfig={initialConfig}>
-				<RichTextPlugin
-					contentEditable={
-						<ContentEditable className={styles.editor} />
-					}
-					placeholder={""}
-				/>
-				<OnChangePlugin onChange={onChange} />
-				<HistoryPlugin />
-				<AutoFocusPlugin />
-				<ListPlugin />
-				<LinkPlugin />
-				<CheckListPlugin />
-				<TablePlugin />
-				<AutoLinkPlugin matchers={MATCHERS} />
-			</LexicalComposer>
+			<RichTextPlugin
+				contentEditable={<ContentEditable className={styles.editor} />}
+				placeholder={""}
+			/>
+			<OnChangePlugin onChange={onChange} />
+			<HistoryPlugin />
+			<AutoFocusPlugin />
+			<ListPlugin />
+			<LinkPlugin />
+			<CheckListPlugin />
+			<TablePlugin />
+			<AutoLinkPlugin />
+			<TabInsertPlugin />
 		</div>
 	);
 };

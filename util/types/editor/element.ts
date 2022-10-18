@@ -1,18 +1,20 @@
 import { Media } from "./media";
 import { Text } from "./text";
 
-export enum ElementType {
-	//Text Types
+export enum HeadingType {
 	Title = "title",
 	Heading = "heading",
 	Subheading = "subheading",
-	Body = "body",
-	Monospaced = "Monospaced",
+}
+
+export enum ListType {
 	BulletedList = "bulleted-list",
 	DashedList = "dashed-list",
 	NumberedList = "numbered-list",
+	CheckedList = "checked-list",
+}
 
-	// Utility Types
+export enum UtilType {
 	ListItem = "list-item",
 	Media = "media",
 	Table = "table",
@@ -23,6 +25,19 @@ export enum ElementType {
 	THeader = "table-cell-head",
 }
 
+export enum TextType {
+	Body = "body",
+	Monospaced = "monospaced",
+}
+
+export type ElementType = ListType | UtilType | HeadingType | TextType;
+export const ElementType = {
+	...HeadingType,
+	...ListType,
+	...TextType,
+	...UtilType,
+};
+
 export interface Element<T extends ElementType = ElementType, C = unknown> {
 	type: T;
 	children?: C;
@@ -30,4 +45,4 @@ export interface Element<T extends ElementType = ElementType, C = unknown> {
 
 export type TextElement = Element<ElementType, Text[]>;
 
-export type MediaElement = Element<ElementType.Media, Media>;
+export type MediaElement = Element<UtilType.Media, Media>;

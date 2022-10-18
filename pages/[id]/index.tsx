@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import Editor from "@components/Editor";
+import { initialConfig } from "@components/Editor/util";
 import Settings from "@components/Settings";
 import Layout2 from "@layouts/Layout2";
 import Layout3 from "@layouts/Layout3";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { sidebarState } from "@state/layout";
 import Folders from "@templates/Folders";
 import List from "@templates/List";
@@ -38,18 +40,20 @@ export default () => {
 	}, [id, list]);
 
 	return (
-		<Layout3 open={open}>
-			<Folders />
-			<Layout2>
-				<div className={styles.left}>
-					<List active={id as string} list={list} />
-					<Settings />
-				</div>
-				<Editor
-					date={list.find((note) => note.id === id)?.date}
-					visible={!!id && list.length > 0}
-				/>
-			</Layout2>
-		</Layout3>
+		<LexicalComposer initialConfig={initialConfig}>
+			<Layout3 open={open}>
+				<Folders />
+				<Layout2>
+					<div className={styles.left}>
+						<List active={id as string} list={list} />
+						<Settings />
+					</div>
+					<Editor
+						date={list.find((note) => note.id === id)?.date}
+						visible={!!id && list.length > 0}
+					/>
+				</Layout2>
+			</Layout3>
+		</LexicalComposer>
 	);
 };

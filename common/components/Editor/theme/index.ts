@@ -5,13 +5,17 @@ import styles from "./theme.module.css";
 export default {
 	code: styles.code,
 	link: styles.link,
+	list: {
+		listitem: styles.listItem,
+		listitemChecked: styles.listitemChecked,
+		listitemUnchecked: styles.listitemUnchecked,
+		ol: styles.numberedList,
+		ul: styles.bulletedList,
+	},
 	heading: {
 		h1: styles.h1,
 		h2: styles.h2,
 		h3: styles.h3,
-		h4: styles.h4,
-		h5: styles.h5,
-		h6: styles.h6,
 	},
 	paragraph: styles.paragraph,
 	image: styles.image,
