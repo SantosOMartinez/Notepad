@@ -1,5 +1,8 @@
 import cn from "classnames";
+import { $getSelection } from "lexical";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import Icon from "@components/Icon";
 import toTimestamp from "@functions/date";
@@ -14,16 +17,16 @@ export interface ListItemProps extends Note {
 
 export default ({
 	title = "New Note",
-	date = new Date(),
+	updated_at = new Date(),
 	description = "No additional text.",
-	folder,
+	location,
 	id = "",
 	image,
 	locked,
 	className,
 	active,
 }: ListItemProps) => {
-	const timestamp = toTimestamp(date);
+	const timestamp = toTimestamp(updated_at);
 
 	return (
 		<Link href={`/${id}`}>
@@ -47,11 +50,11 @@ export default ({
 						<p className={styles.date}>{timestamp}</p>
 						<p className={styles.description}>{description}</p>
 					</span>
-					{folder && (
+					{location && (
 						<span className={styles.location}>
 							<Icon icon="folder" className={styles.folder} />
 							<p className={cn("caption", styles.directory)}>
-								{folder}
+								{location}
 							</p>
 						</span>
 					)}

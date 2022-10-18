@@ -7,7 +7,14 @@ import Spacer from "@components/Spacer";
 import Wrap from "@components/Wrap";
 import { suggestions } from "@constants/text";
 
-import { Copy, Lock, Photos, Sidebar } from "./controls";
+import {
+    Copy,
+    CreateNote,
+    DeleteNote,
+    Lock,
+    Photos,
+    Sidebar
+} from "./controls";
 import Format from "./controls/Format";
 import Link from "./controls/Link";
 import More from "./controls/More";
@@ -25,7 +32,7 @@ export const Left = (props: Props) => (
 			options={[{ icon: "list" }, { icon: "grid" }]}
 		/>
 		<Spacer flexible />
-		<Button icon="trash" />
+		<DeleteNote />
 	</section>
 );
 
@@ -34,7 +41,7 @@ export const Right = (props: Props) => {
 
 	return (
 		<section className={styles.right} {...props}>
-			<Button icon="note" />
+			<CreateNote />
 			<Spacer flexible />
 			<Format />
 			<Button icon="checklist" />

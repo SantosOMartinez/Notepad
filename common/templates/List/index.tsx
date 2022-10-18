@@ -1,18 +1,25 @@
 import cn from "classnames";
-import { HTMLAttributes } from "react";
+import { useRouter } from "next/router";
+import { HTMLAttributes, useEffect } from "react";
+import { useRecoilValue } from "recoil";
 
 import Item from "@components/ListItem";
-import Note from "@type/note";
+import useRefreshNotes from "@hooks/useRefreshNotes";
+import { locationState, noteListState, noteState } from "@state/toolbar";
 
 import styles from "./list.module.css";
 
 interface Props extends HTMLAttributes<HTMLElement> {
-	list?: Note[];
 	active?: string;
 }
 
-export default ({ active, list = [], className, ...props }: Props) => {
+export default ({ className, ...props }: Props) => {
+	const list = useRecoilValue(noteListState);
 	const isEmpty = list.length === 0;
+	const location = useRecoilValue(locationState);
+	const note = useRecoilValue(noteState);
+
+	useRefreshNotes();
 
 	return (
 		<nav
@@ -20,9 +27,11 @@ export default ({ active, list = [], className, ...props }: Props) => {
 			{...props}
 		>
 			{!isEmpty ? (
-				list.map((p, i) => (
-					<Item key={i} {...p} active={active === p.id} />
-				))
+				list
+					.filter((item) => item.location === location)
+					.map((p, i) => (
+						<Item key={i} {...p} active={note?.id === p.id} />
+					))
 			) : (
 				<h6 className={styles.empty}>No Notes</h6>
 			)}

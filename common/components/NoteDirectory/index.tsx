@@ -7,7 +7,7 @@ import { formatNumber } from "@functions/format";
 import styles from "./noteDirectory.module.css";
 
 export interface Directory {
-	id: string;
+	id: string | null;
 	name: string;
 	count?: number;
 }

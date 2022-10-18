@@ -1,6 +1,4 @@
 import cn from "classnames";
-import { EditorState } from "lexical";
-import { useRef } from "react";
 
 import { formatDate } from "@functions/date";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
@@ -8,7 +6,6 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 
@@ -30,10 +27,7 @@ const format = (date: Date) =>
 	});
 
 export default ({ date = new Date(), visible = true }: Props) => {
-	const editorStateRef = useRef<EditorState>();
 	const timestamp = format(date);
-
-	const onChange = (editorState) => (editorStateRef.current = editorState);
 
 	return (
 		<div className={cn(styles.container, { [styles.visible]: visible })}>
@@ -42,7 +36,6 @@ export default ({ date = new Date(), visible = true }: Props) => {
 				contentEditable={<ContentEditable className={styles.editor} />}
 				placeholder={""}
 			/>
-			<OnChangePlugin onChange={onChange} />
 			<HistoryPlugin />
 			<AutoFocusPlugin />
 			<ListPlugin />

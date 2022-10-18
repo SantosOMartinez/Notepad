@@ -6,13 +6,11 @@ import {
     CAN_REDO_COMMAND,
     CAN_UNDO_COMMAND,
     COMMAND_PRIORITY_CRITICAL,
-    COMMAND_PRIORITY_EDITOR,
-    INSERT_PARAGRAPH_COMMAND,
     SELECTION_CHANGE_COMMAND
 } from "lexical";
 import { useCallback, useEffect, useState } from "react";
 
-import { $isListNode, ListNode, REMOVE_LIST_COMMAND } from "@lexical/list";
+import { $isListNode, ListNode } from "@lexical/list";
 import {
     useLexicalComposerContext
 } from "@lexical/react/LexicalComposerContext";
@@ -23,8 +21,6 @@ import {
     mergeRegister
 } from "@lexical/utils";
 import { ElementType as Type, ListType } from "@type/editor";
-
-import formatBlock, { formatParagraph } from "./formatBlock";
 
 const listTypes = {
 	bullet: ListType.BulletedList,
