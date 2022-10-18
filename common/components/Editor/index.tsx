@@ -3,9 +3,6 @@ import { EditorState } from "lexical";
 import { useRef } from "react";
 
 import { formatDate } from "@functions/date";
-import { CodeNode } from "@lexical/code";
-import { AutoLinkNode, LinkNode } from "@lexical/link";
-import { ListItemNode, ListNode } from "@lexical/list";
 import { AutoLinkPlugin } from "@lexical/react/LexicalAutoLinkPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
@@ -16,12 +13,10 @@ import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
-import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
-import { EditorConfig } from "@type/editor";
 
 import styles from "./editor.module.css";
 import AutoFocusPlugin from "./plugins/AutoFocus";
-import theme from "./theme";
+import { initialConfig, MATCHERS } from "./util";
 
 interface Props {
 	date?: Date;
@@ -34,40 +29,6 @@ const format = (date: Date) =>
 		hour12: true,
 		timeStyle: "short",
 	});
-
-const initialConfig: EditorConfig = {
-	namespace: "Notepad",
-	theme,
-	onError: (error) => console.log(error),
-	editorState: null,
-	nodes: [
-		ListNode,
-		ListItemNode,
-		LinkNode,
-		AutoLinkNode,
-		TableNode,
-		TableCellNode,
-		TableRowNode,
-		CodeNode,
-	],
-};
-
-const URL_MATCHER =
-	/((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
-
-const MATCHERS = [
-	(text) => {
-		const match = URL_MATCHER.exec(text);
-		return (
-			match && {
-				index: match.index,
-				length: match[0].length,
-				text: match[0],
-				url: match[0],
-			}
-		);
-	},
-];
 
 export default ({ date = new Date(), visible = true }: Props) => {
 	const editorStateRef = useRef<EditorState>();

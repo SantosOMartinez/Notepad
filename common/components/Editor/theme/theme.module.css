@@ -1,0 +1,78 @@
+.code {
+}
+
+.link {
+}
+
+.h1 {
+}
+
+.h2 {
+}
+
+.h3 {
+}
+
+.h4 {
+}
+
+.h5 {
+}
+
+.h6 {
+}
+
+.paragraph {
+}
+
+.image {
+}
+
+.table {
+}
+
+.base {
+	font-family: Inter;
+	font-size: 0.75rem;
+	color: var(--text);
+	font-weight: 400;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.textCode {
+	background-color: var(--hover-bg);
+	border-radius: 0.25rem;
+	border: 1px solid var(--border);
+}
+
+.italic {
+	font-style: italic;
+}
+
+.strikethrough {
+	text-decoration: line-through;
+}
+
+.subscript,
+.superscript {
+	font-size: 0.5em;
+}
+
+.subscript {
+	vertical-align: sub;
+}
+
+.superscript {
+	vertical-align: super;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.underlineStrikethrough {
+	text-decoration: underline line-through;
+}
