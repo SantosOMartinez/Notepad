@@ -19,7 +19,7 @@ import {
 import { $createHeadingNode } from "@lexical/rich-text";
 import { $wrapNodes } from "@lexical/selection";
 import { $findMatchingParent } from "@lexical/utils";
-import { ElementType as Type, HeadingType, ListType } from "@type/editor";
+import { ElementType as Type, HeadingType } from "@type/editor";
 
 import {
     $createMonospacedNode
@@ -87,41 +87,14 @@ const getElement = () => {
 	return element;
 };
 
-export const formatBulletList = (editor: LexicalEditor) => {
+export const formatBulletList = (editor: LexicalEditor) =>
 	editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
 
-	// editor.update(() => {
-	// 	if ($isListNode(getElement())) {
-	// 		editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
-	// 	} else {
-	// 		editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
-	// 	}
-	// });
-};
-
-export const formatCheckList = (editor: LexicalEditor) => {
+export const formatCheckList = (editor: LexicalEditor) =>
 	editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined);
 
-	// editor.update(() => {
-	// 	if ($isListNode(getElement())) {
-	// 		editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined);
-	// 	} else {
-	// 		editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
-	// 	}
-	// });
-};
-
-export const formatNumberedList = (editor: LexicalEditor) => {
+export const formatNumberedList = (editor: LexicalEditor) =>
 	editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
-
-	// editor.update(() => {
-	// 	if ($isListNode(getElement())) {
-	// 		editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
-	// 	} else {
-	// 		editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
-	// 	}
-	// });
-};
 
 export default function formatBlock(editor: LexicalEditor, blockType: Type) {
 	switch (blockType) {

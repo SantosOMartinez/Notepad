@@ -31,11 +31,17 @@ const options = [
 
 export default () => {
 	const popover = usePopoverState({ animated: true });
+
+	const onSelect = (callback) => {
+		popover.toggle();
+		callback();
+	};
+
 	return (
 		<>
 			<PopoverDisclosure state={popover} icon="format" />
 			<Popover state={popover} portal>
-				<FormatContext onSelect={popover.toggle} />
+				<FormatContext onSelect={onSelect} />
 			</Popover>
 		</>
 	);
@@ -60,7 +66,7 @@ const SelectItem = ({ selected, children, ...props }: SelectItemProps) => (
 );
 
 interface FormatContextProps {
-	onSelect?: () => void;
+	onSelect?: (callBack: () => void) => void;
 	defaultValue?: Type;
 	defaultAnnotations?: Annotations;
 }
@@ -107,7 +113,10 @@ export const FormatContext = ({
 						selected={select.value === value}
 						value={value}
 						key={i}
-						onClick={onSelect}
+						onClick={() => {
+							formatBlock(activeEditor, value);
+							onSelect(() => activeEditor?.focus());
+						}}
 					>
 						{name}
 					</SelectItem>

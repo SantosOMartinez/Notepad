@@ -55,12 +55,6 @@ export default function useFormatUpdate(select: SelectState<Type>) {
 	const [canRedo, setCanRedo] = useState(false);
 	const [editable, setEditable] = useState(() => editor.isEditable());
 
-	useEffect(() => {
-		if (select.value === undefined) return;
-
-		formatBlock(activeEditor, select.value as Type);
-	}, [select.value]);
-
 	const updateToolbar = useCallback(() => {
 		const selection = $getSelection();
 		if ($isRangeSelection(selection)) {
@@ -97,6 +91,9 @@ export default function useFormatUpdate(select: SelectState<Type>) {
 					const type = parentList
 						? parentList.getListType()
 						: element.getListType();
+
+					if (type === undefined) return;
+
 					select.setValue(listTypes[type]);
 				} else {
 					const type = $isHeadingNode(element)
@@ -160,7 +157,6 @@ export default function useFormatUpdate(select: SelectState<Type>) {
 		canUndo,
 		canRedo,
 		editable,
-		editor,
 		activeEditor,
 	};
 }

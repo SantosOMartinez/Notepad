@@ -2,7 +2,7 @@ import { ElementNode, LexicalNode, ParagraphNode } from "lexical";
 
 import { ElementType as Type } from "@type/editor";
 
-import styles from "./block.module.css";
+import styles from "./nodes.module.css";
 
 import type { NodeKey } from "lexical";
 export class MonospacedNode extends ParagraphNode {
