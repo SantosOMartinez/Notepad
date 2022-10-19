@@ -1,12 +1,11 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
 
 import Editor from "@components/Editor";
+import useNotes from "@hooks/useNotes";
 import {
     useLexicalComposerContext
 } from "@lexical/react/LexicalComposerContext";
-import { noteListState, noteState } from "@state/toolbar";
 
 interface Props {}
 
@@ -14,19 +13,18 @@ export default ({}: Props) => {
 	const router = useRouter();
 	const { id } = router.query;
 	const [editor] = useLexicalComposerContext();
-	const list = useRecoilValue(noteListState);
-	const note = useRecoilValue(noteState);
+	const { content, note, notes } = useNotes();
 
 	useEffect(() => {
 		if (!id) return;
-		const state = note ? editor.parseEditorState(note.document) : null;
+		const state = content ? editor.parseEditorState(content.file) : null;
 		state && editor.setEditorState(state);
-	}, [note]);
+	}, [content]);
 
 	return (
 		<Editor
 			date={note?.updated_at}
-			visible={!!id && list.length > 0 && !!note}
+			visible={!!id && notes.length > 0 && !!note}
 		/>
 	);
 };

@@ -50,13 +50,24 @@ export class Database {
 
 		return await openDB<NotesDBV1>(DB.Notes, this.version, {
 			upgrade: (db) => {
-				const store = db.createObjectStore("notes", {
+				const notes = db.createObjectStore("notes", {
 					keyPath: "id",
 				});
-				store.createIndex("by_id", "id");
-				store.createIndex("updated_at", "updated_at");
-				store.createIndex("created_at", "created_at");
-				store.createIndex("by_location", "location", { unique: false });
+				notes.createIndex("by_id", "id");
+				notes.createIndex("updated_at", "updated_at");
+				notes.createIndex("created_at", "created_at");
+				notes.createIndex("by_location", "location", { unique: false });
+
+				const content = db.createObjectStore(DB.Content, {
+					keyPath: "id",
+				});
+				content.createIndex("by_id", "id");
+				content.createIndex("updated_at", "updated_at");
+				content.createIndex("created_at", "created_at");
+
+				db.createObjectStore(DB.Lock, {
+					keyPath: "id",
+				}).createIndex("by_id", "id");
 			},
 		});
 	}

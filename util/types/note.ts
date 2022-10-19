@@ -1,21 +1,22 @@
 export default interface Note {
 	id: string;
+	locked?: boolean;
+	image?: string;
 	title?: string;
 	description?: string;
-	locked?: boolean;
 	created_at: Date;
 	updated_at: Date;
-	image?: string;
-	location: string | null;
-	document: string;
+	location?: string;
 }
 
-export interface NotePreview {
+export type PartialNote = Partial<Note> & { id: string };
+
+export interface NoteContent {
 	id: string;
-	title?: string;
-	description?: string;
-	locked?: boolean;
-	date?: Date;
-	image?: string;
-	location: string | null;
+	file: string;
+}
+
+export interface NoteLock {
+	id: string;
+	password: string;
 }

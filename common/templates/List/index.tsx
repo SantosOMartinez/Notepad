@@ -1,11 +1,10 @@
 import cn from "classnames";
-import { useRouter } from "next/router";
 import { HTMLAttributes, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 
 import Item from "@components/ListItem";
-import useRefreshNotes from "@hooks/useRefreshNotes";
-import { locationState, noteListState, noteState } from "@state/toolbar";
+import useNotes from "@hooks/useNotes";
+import { locationState } from "@state/notes";
 
 import styles from "./list.module.css";
 
@@ -14,12 +13,9 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 export default ({ className, ...props }: Props) => {
-	const list = useRecoilValue(noteListState);
-	const isEmpty = list.length === 0;
+	const { note, notes } = useNotes();
+	const isEmpty = notes.length === 0;
 	const location = useRecoilValue(locationState);
-	const note = useRecoilValue(noteState);
-
-	useRefreshNotes();
 
 	return (
 		<nav
@@ -27,7 +23,7 @@ export default ({ className, ...props }: Props) => {
 			{...props}
 		>
 			{!isEmpty ? (
-				list
+				notes
 					.filter((item) => item.location === location)
 					.map((p, i) => (
 						<Item key={i} {...p} active={note?.id === p.id} />

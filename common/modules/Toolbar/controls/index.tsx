@@ -1,16 +1,12 @@
 import { useMenuState } from "ariakit/menu";
 import { useRouter } from "next/router";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { v4 as uuid } from "uuid";
+import { useSetRecoilState } from "recoil";
 
 import Button from "@components/Button";
 import Icon from "@components/Icon";
 import { Menu, MenuButton } from "@components/Menu";
-import { BLANK_NOTE } from "@constants/editor";
-import { useDBQueries } from "@db/useDBQuery";
-import useRefreshNotes from "@hooks/useRefreshNotes";
+import useNotes from "@hooks/useNotes";
 import { sidebarState } from "@state/layout";
-import { noteListState, noteState } from "@state/toolbar";
 
 import { Copy as C, Lock as L, Media as M } from "./contextMenus";
 
@@ -73,41 +69,25 @@ export const Copy = (props) => {
 
 export const Sidebar = () => {
 	const setOpen = useSetRecoilState(sidebarState);
-
 	return <Button icon="panel-left" onClick={() => setOpen((s) => !s)} />;
 };
 
 export const CreateNote = () => {
-	const { addOneNote } = useDBQueries();
-
+	const { createBlankNote } = useNotes();
 	const router = useRouter();
 	const onClick = async () => {
-		const id = uuid();
-		const note = {
-			id,
-			location: null,
-			created_at: new Date(),
-			updated_at: new Date(),
-			document: JSON.stringify(BLANK_NOTE),
-		};
-		await addOneNote(note);
-		router.push(`/${id}`, undefined, { shallow: true });
+		const note = await createBlankNote();
+		router.push(`/${note.id}`, undefined, { shallow: true });
 	};
-
 	return <Button icon="note" onClick={onClick} />;
 };
 
 export const DeleteNote = () => {
-	const { removeOneNote } = useDBQueries();
-	const { refreshList } = useRefreshNotes();
-	const list = useRecoilValue(noteListState);
+	const { removeCurrent, notes } = useNotes();
 	const router = useRouter();
-	const { id } = router.query;
 	const onClick = async () => {
-		await removeOneNote(id as string);
-		await refreshList();
-		router.push(`/${list.at(0).id}`, undefined, { shallow: true });
+		await removeCurrent();
+		router.push(`/${notes.at(0).id}`, undefined, { shallow: true });
 	};
-
 	return <Button icon="trash" onClick={onClick} />;
 };

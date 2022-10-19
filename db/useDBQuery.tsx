@@ -35,5 +35,10 @@ export const useDB = () => {
 export const useDBQueries = () => {
 	const { db } = useDB();
 
-	return dbQueries(db);
+	const isConnected = !!db?.notes;
+
+	return {
+		...dbQueries(db),
+		isConnected,
+	};
 };

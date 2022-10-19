@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 
 import NoteDirectory from "@components/NoteDirectory";
 import { groups } from "@mockup/directories";
-import { locationState } from "@state/toolbar";
+import { locationState } from "@state/notes";
 
 import styles from "./folders.module.css";
 

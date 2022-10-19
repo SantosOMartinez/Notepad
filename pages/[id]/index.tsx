@@ -16,9 +16,6 @@ import styles from "./style.module.css";
 export default () => {
 	const open = useRecoilValue(sidebarState);
 
-	const router = useRouter();
-	const { id } = router.query;
-
 	return (
 		<LexicalComposer initialConfig={initialConfig}>
 			<Layout3 open={open}>
