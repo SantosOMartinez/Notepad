@@ -1,4 +1,5 @@
 import cn from "classnames";
+import { EditorState, LexicalEditor } from "lexical";
 
 import { formatDate } from "@functions/date";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
@@ -6,6 +7,7 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 
@@ -17,6 +19,7 @@ import TabInsertPlugin from "./plugins/TabInsert";
 interface Props {
 	date?: Date;
 	visible?: boolean;
+	onChange?: (editorState: EditorState, editor: LexicalEditor) => void;
 }
 
 const format = (date: Date) =>
@@ -26,7 +29,11 @@ const format = (date: Date) =>
 		timeStyle: "short",
 	});
 
-export default ({ date = new Date(), visible = true }: Props) => {
+export default ({
+	date = new Date(),
+	visible = true,
+	onChange = () => {},
+}: Props) => {
 	const timestamp = format(date);
 
 	return (
@@ -40,6 +47,7 @@ export default ({ date = new Date(), visible = true }: Props) => {
 			<AutoFocusPlugin />
 			<ListPlugin />
 			<LinkPlugin />
+			<OnChangePlugin onChange={onChange} />
 			<CheckListPlugin />
 			<TablePlugin />
 			<AutoLinkPlugin />

@@ -58,6 +58,7 @@ export default function useNotes() {
 			if (!list.at(0)) return;
 
 			setNote(list.at(0));
+			setContent(await getContent(list.at(0).id));
 			router.push(`/${list.at(0).id}`, undefined, { shallow: true });
 		};
 		load();
@@ -66,14 +67,20 @@ export default function useNotes() {
 	useEffect(() => {
 		if (!id) return;
 
-		const load = async () => setNote(await getNote(id as string));
+		const load = async () => {
+			setNote(await getNote(id as string));
+			setContent(await getContent(id as string));
+		};
 		load();
 	}, [id]);
 
 	useEffect(() => {
-		if (id || !notes.length) return;
-		setNote(notes.at(0));
-		router.push(`/${notes.at(0).id}`, undefined, { shallow: true });
+		const load = async () => {
+			if (id || !notes.length) return;
+			setNote(notes.at(0));
+			setContent(await getContent(notes.at(0).id));
+			router.push(`/${notes.at(0).id}`, undefined, { shallow: true });
+		};
 	}, [id]);
 
 	const removeCurrent = async () => {
@@ -81,6 +88,7 @@ export default function useNotes() {
 		await removeOneNote(id as string);
 		await refresh();
 		setNote(null);
+		setContent(null);
 	};
 	const removeBatch = async (ids: string[]) => {
 		await removeManyNotes(ids);
@@ -103,6 +111,7 @@ export default function useNotes() {
 
 		await Promise.all([addOneNote(note), addContent(content)]);
 		setNote(note);
+		setContent(content);
 		router.push(`/${id}`, undefined, { shallow: true });
 
 		await refresh();
