@@ -1,12 +1,13 @@
 import { useMenuState } from "ariakit/menu";
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import Button from "@components/Button";
 import Icon from "@components/Icon";
 import { Menu, MenuButton } from "@components/Menu";
 import useNotes from "@hooks/useNotes";
 import { sidebarState } from "@state/layout";
+import { locationState } from "@state/notes";
 
 import { Copy as C, Lock as L, Media as M } from "./contextMenus";
 
@@ -74,9 +75,10 @@ export const Sidebar = () => {
 
 export const CreateNote = () => {
 	const { createBlankNote } = useNotes();
+	const location = useRecoilValue(locationState);
 	const router = useRouter();
 	const onClick = async () => {
-		const note = await createBlankNote();
+		const note = await createBlankNote({ location });
 		router.push(`/${note.id}`, undefined, { shallow: true });
 	};
 	return <Button icon="note" onClick={onClick} />;
@@ -87,7 +89,7 @@ export const DeleteNote = () => {
 	const router = useRouter();
 	const onClick = async () => {
 		await removeCurrent();
-		router.push(`/${notes.at(0).id}`, undefined, { shallow: true });
+		router.push("/", undefined, { shallow: true });
 	};
 	return <Button icon="trash" onClick={onClick} />;
 };

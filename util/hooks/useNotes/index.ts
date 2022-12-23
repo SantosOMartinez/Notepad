@@ -1,17 +1,23 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { v4 as uuid } from "uuid";
 
 import { BLANK_NOTE } from "@constants/editor";
 import { useDBQueries } from "@db/useDBQuery";
-import { noteContentState, notesState, noteState } from "@state/notes";
+import {
+    locationState,
+    noteContentState,
+    notesState,
+    noteState
+} from "@state/notes";
 import Note, { NoteContent } from "@type/note";
 
 // -----[Gloabl State]-----
 
 export default function useNotes() {
 	const [notes, setNotes] = useRecoilState(notesState);
+	const location = useRecoilValue(locationState);
 	const [note, setNote] = useRecoilState(noteState);
 	const [content, setContent] = useRecoilState(noteContentState);
 	const router = useRouter();
@@ -34,7 +40,21 @@ export default function useNotes() {
 		removeLock,
 		updateLock,
 		isConnected,
+		noteExists,
 	} = useDBQueries();
+
+	useEffect(() => {
+		if (!id) return;
+
+		const check = async () => {
+			const note = await getNote(id as string);
+
+			if (note && note?.location?.id === location?.id) return;
+
+			router.push("/", undefined, { shallow: true });
+		};
+		check();
+	}, [id, location]);
 
 	const refresh = async () => {
 		const list = await getNotes();
@@ -50,21 +70,6 @@ export default function useNotes() {
 	}, [isConnected]);
 
 	useEffect(() => {
-		const load = async () => {
-			const list = (await getNotes()).sort(
-				(a, b) => b.updated_at.getTime() - a.updated_at.getTime()
-			);
-			if (note) return;
-			if (!list.at(0)) return;
-
-			setNote(list.at(0));
-			setContent(await getContent(list.at(0).id));
-			router.push(`/${list.at(0).id}`, undefined, { shallow: true });
-		};
-		load();
-	}, [note]);
-
-	useEffect(() => {
 		if (!id) return;
 
 		const load = async () => {
@@ -72,15 +77,6 @@ export default function useNotes() {
 			setContent(await getContent(id as string));
 		};
 		load();
-	}, [id]);
-
-	useEffect(() => {
-		const load = async () => {
-			if (id || !notes.length) return;
-			setNote(notes.at(0));
-			setContent(await getContent(notes.at(0).id));
-			router.push(`/${notes.at(0).id}`, undefined, { shallow: true });
-		};
 	}, [id]);
 
 	const removeCurrent = async () => {
@@ -95,10 +91,11 @@ export default function useNotes() {
 		await refresh();
 	};
 
-	const createBlankNote = async () => {
+	const createBlankNote = async (options: Partial<Omit<Note, "id">> = {}) => {
 		const id = uuid();
 		const date = new Date();
 		const note: Note = {
+			...options,
 			id,
 			created_at: date,
 			updated_at: date,

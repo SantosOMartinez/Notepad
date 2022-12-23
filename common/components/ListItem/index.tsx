@@ -1,8 +1,5 @@
 import cn from "classnames";
-import { $getSelection } from "lexical";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 import Icon from "@components/Icon";
 import toTimestamp from "@functions/date";
@@ -50,11 +47,11 @@ export default ({
 						<p className={styles.date}>{timestamp}</p>
 						<p className={styles.description}>{description}</p>
 					</span>
-					{location && (
+					{location?.name && (
 						<span className={styles.location}>
 							<Icon icon="folder" className={styles.folder} />
 							<p className={cn("caption", styles.directory)}>
-								{location}
+								{location?.name}
 							</p>
 						</span>
 					)}

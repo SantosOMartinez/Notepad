@@ -10,6 +10,7 @@ export interface Directory {
 	id: string | null;
 	name: string;
 	count?: number;
+	hideName?: boolean;
 }
 
 export interface Group {
@@ -18,8 +19,8 @@ export interface Group {
 }
 
 interface CommonProps {
-	onChange?: (id: string) => void;
-	selected?: string;
+	onChange?: (location?: { id: string; name: string }) => void;
+	selected?: { id: string; name: string };
 }
 
 interface Props extends CommonProps {
@@ -53,8 +54,13 @@ const Group = ({
 			<Item
 				key={i}
 				directory={directory}
-				onClick={() => onChange(directory.id)}
-				selected={directory.id === selected}
+				onClick={() =>
+					onChange({
+						id: directory.id,
+						name: directory.hideName ? undefined : directory.name,
+					})
+				}
+				selected={directory.id === selected?.id}
 			/>
 		))}
 	</div>

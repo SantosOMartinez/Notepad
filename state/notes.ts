@@ -17,7 +17,7 @@ export const notesState = atom<Note[]>({
 	default: [],
 });
 
-export const locationState = atom<string | undefined>({
+export const locationState = atom<{ id: string; name: string } | undefined>({
 	key: "locationState",
 	default: undefined,
 });

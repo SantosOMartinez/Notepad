@@ -24,7 +24,7 @@ export default ({ className, ...props }: Props) => {
 		>
 			{!isEmpty ? (
 				notes
-					.filter((item) => item.location === location)
+					.filter((item) => item.location?.id === location?.id)
 					.map((p, i) => (
 						<Item key={i} {...p} active={note?.id === p.id} />
 					))

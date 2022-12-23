@@ -6,7 +6,10 @@ export default interface Note {
 	description?: string;
 	created_at: Date;
 	updated_at: Date;
-	location?: string;
+	location?: {
+		name?: string;
+		id?: string;
+	};
 }
 
 export type PartialNote = Partial<Note> & { id: string };

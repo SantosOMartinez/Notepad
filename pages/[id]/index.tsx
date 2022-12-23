@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 
 import { initialConfig } from "@components/Editor/util";

@@ -36,6 +36,8 @@ export default ({
 }: Props) => {
 	const timestamp = format(date);
 
+	if (!visible) return <h6 className={styles.empty}>No Message Selected</h6>;
+
 	return (
 		<div className={cn(styles.container, { [styles.visible]: visible })}>
 			<p className={styles.date}>{timestamp}</p>
