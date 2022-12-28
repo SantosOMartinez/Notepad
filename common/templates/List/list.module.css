@@ -1,0 +1,19 @@
+.list {
+	padding: 0.5rem;
+	padding-right: 0.25rem;
+	overflow: auto;
+	height: calc(100% - 1rem);
+	user-select: none;
+}
+
+.none {
+	display: grid;
+	place-items: center;
+}
+
+.empty {
+	color: var(--subtitle);
+	opacity: 0.75;
+	text-align: center;
+	font-weight: 500;
+}

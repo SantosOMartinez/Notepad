@@ -1,0 +1,63 @@
+.title,
+.heading,
+.subheading,
+.body,
+.bulletedList,
+.dashedList,
+.monospaced,
+.numberedList {
+	margin: 0 0 0.5rem;
+}
+
+.title {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 32px;
+	letter-spacing: -0.03em;
+	line-height: 32px;
+}
+
+.heading {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	letter-spacing: -0.02em;
+	line-height: 20px;
+}
+
+.subheading {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	letter-spacing: -0.01em;
+	line-height: 16px;
+}
+
+.body {
+	font-family: Inter;
+	font-size: 14px;
+	line-height: 14px;
+}
+
+.monospaced {
+	font-family: Inter;
+	letter-spacing: 0.25em;
+	font-size: 14px;
+	line-height: 14px;
+	font-weight: 400;
+}
+
+.bulletedList {
+	list-style-type: circle;
+}
+
+.dashedList {
+	list-style-type: "— ";
+}
+
+.numberedList {
+	list-style-type: decimal;
+}
+
+.listItem {
+}

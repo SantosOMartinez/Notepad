@@ -1,12 +1,8 @@
 /* Fonts are defined here. */
 
-@font-face {
-	/*
-	font-family: "Font name goes here...";
-	src: url("URI to font here...") format("truetype");
-	font-weight: normal;
-	font-style: normal;
-	*/
+html {
+	/* Base size for rem unit */
+	font-size: 18px; /* Default: 16px */
 }
 
-/* Define more fonts down here... */
+@import "fonts/inter.css";

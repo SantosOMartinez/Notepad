@@ -1,0 +1,23 @@
+.container {
+	position: relative;
+	flex-grow: 1;
+	display: grid;
+}
+
+.content {
+	display: flex;
+	margin-left: auto;
+}
+
+.scaffold {
+	top: 0;
+	display: flex;
+	flex-wrap: wrap;
+	position: absolute;
+	flex-grow: 1;
+	opacity: 0;
+	pointer-events: none;
+	visibility: hidden;
+	overflow: hidden;
+	width: 100%;
+}

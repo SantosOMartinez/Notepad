@@ -10,13 +10,15 @@
 			"@pages/*": ["pages/*"],
 			// Application State
 			"@state/*": ["state/*"],
+			"@db/*": ["db/*"],
 			// Css
 			"@styles/*": ["styles/*"],
 			// Utilities
 			"@functions/*": ["util/functions/*"],
 			"@hooks/*": ["util/hooks/*"],
-			"@types/*": ["util/types/*"],
+			"@type/*": ["util/types/*"],
 			"@constants/*": ["util/constants/*"],
+			"@mockup/*": ["mockup/*"],
 			// Public
 			"@assets/*": ["public/assets/*"],
 			"@fonts/*": ["public/fonts/*"]

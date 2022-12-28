@@ -1,0 +1,66 @@
+.left,
+.right {
+	height: 50px;
+	display: flex;
+	column-gap: 0.25rem;
+	align-items: center;
+	padding-bottom: 0.25rem;
+	background-color: var(--toolbar);
+	z-index: 1;
+}
+
+.left {
+	padding-left: 1rem;
+	min-width: max-content;
+}
+
+.right {
+	padding-right: 0.5rem;
+	min-width: min-content;
+}
+
+.hStack {
+	column-gap: 0.25rem;
+	max-height: 1.625rem;
+	align-items: center;
+	min-width: 0;
+}
+
+.item {
+	transition: var(--transition);
+	scale: 1;
+}
+
+.vanish {
+	scale: 0;
+	transition: var(--transition);
+	animation: disappear calc(var(--transition)) forwards;
+	pointer-events: none;
+}
+
+@keyframes disappear {
+	to {
+		width: 0;
+	}
+}
+
+.more {
+	animation: slide var(--transition) forwards;
+}
+
+@keyframes slide {
+	0% {
+		scale: 0;
+		opacity: 0;
+		transform: translateX(50%);
+	}
+
+	50% {
+		scale: 1;
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(0);
+	}
+}

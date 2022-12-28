@@ -1,0 +1,65 @@
+.visible {
+	opacity: 1;
+	transition: var(--transition);
+	pointer-events: auto;
+}
+
+.title {
+	color: var(--subtitle);
+	opacity: 0.75;
+	margin-left: 0.25rem;
+	margin-bottom: 0.5rem;
+	font-size: 12px;
+	user-select: none;
+}
+
+.scrollbar {
+	overflow-y: auto;
+	overflow-x: hidden;
+	overscroll-behavior: contain;
+}
+
+.suggestion {
+	display: grid;
+	align-items: center;
+	justify-items: flex-start;
+	grid-template-columns: max-content 1fr;
+	column-gap: 0.5rem;
+	padding: 0.25rem 0.5rem;
+
+	border-radius: 0.25rem;
+	background: none;
+	border: none;
+	outline: none;
+	width: 100%;
+}
+
+.suggestion:hover,
+.suggestion:focus {
+	background-color: var(--accent);
+}
+
+.suggestion > svg {
+	--svg-size: 0.938rem;
+
+	fill: var(--subtitle);
+	height: var(--svg-size);
+	width: var(--svg-size);
+	min-height: var(--svg-size);
+	min-width: var(--svg-size);
+}
+
+.suggestion:hover > svg,
+.suggestion:focus > svg {
+	fill: var(--neutral-9);
+}
+
+.suggestion > p {
+	color: var(--text);
+	font-size: 12px;
+}
+
+.suggestion:hover > p,
+.suggestion:focus > p {
+	color: var(--neutral-9);
+}

@@ -1,0 +1,65 @@
+.header {
+	margin: 0;
+	text-align: center;
+	font-size: 12px;
+	user-select: none;
+}
+
+.link {
+	width: 300px;
+	display: grid;
+	grid-template-columns: 3rem 1fr max-content;
+	align-items: center;
+	column-gap: 0.5rem;
+	user-select: none;
+	cursor: default;
+}
+
+.img {
+	--img-size: 3rem;
+
+	height: var(--img-size);
+	width: var(--img-size);
+	min-width: var(--img-size);
+	min-height: var(--img-size);
+	border-radius: 0.25rem;
+	object-fit: cover;
+}
+
+.text {
+	display: grid;
+	row-gap: 0.25rem;
+}
+
+.title,
+.description {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
+.title {
+	font-size: 12px;
+}
+
+.description {
+	font-size: 11px;
+	color: var(--subtitle);
+}
+
+.button {
+	font-size: 12px;
+	font-family: Inter;
+	padding: 0.25rem 0.5rem;
+	background-color: var(--bg);
+	border-radius: 0.25rem;
+	outline: none;
+	border: 1px solid var(--border);
+	transition: var(--transition);
+}
+
+.button:active {
+	filter: brightness(0.95);
+}

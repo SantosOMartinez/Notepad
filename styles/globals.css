@@ -1,6 +1,9 @@
 /* Organize all global styles here. */
 
+@import "constants.css";
+@import "colors.css";
 @import "themes.css";
+@import "layouts.css";
 @import "fonts.css";
 @import "typography.css";
 @import "types.css";

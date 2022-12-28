@@ -1,0 +1,27 @@
+.divider {
+	height: 100%;
+	position: relative;
+	display: grid;
+	place-items: center;
+	user-select: none;
+	width: 10px;
+	cursor: col-resize;
+}
+
+.divider::after {
+	background-color: var(--divider);
+	height: 100%;
+	content: "";
+	width: 1px;
+}
+
+.vertical::after {
+	margin-top: 0.75rem;
+	margin-bottom: 0.75rem;
+	height: calc(100% - 1.5rem);
+}
+
+.horizontal {
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+}

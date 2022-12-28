@@ -1,0 +1,139 @@
+.item {
+	display: flex;
+	padding: 0.5rem;
+	padding-left: 0.375rem;
+	border-radius: 0.25rem;
+	cursor: default;
+	text-decoration: none;
+	position: relative;
+}
+
+.item::after {
+	content: "";
+	height: 1px;
+	background-color: var(--divider);
+	position: absolute;
+	right: 1rem;
+	bottom: 0;
+	left: 1rem;
+	user-select: none;
+	pointer-events: none;
+}
+
+.active::after,
+.item:last-child::after {
+	background-color: transparent;
+}
+
+.left {
+	width: 0.625rem;
+	min-width: 0.625rem;
+	margin-right: 0.25rem;
+	display: grid;
+	align-items: flex-start;
+	opacity: 0;
+	transition: var(--transition);
+	pointer-events: none;
+	user-select: none;
+}
+
+.lock {
+	width: 0.625rem;
+	height: 0.625rem;
+	fill: var(--icon);
+}
+
+.locked {
+	transition: var(--transition);
+	opacity: 1;
+}
+
+.text {
+	flex-grow: 1;
+}
+
+.title {
+	margin-bottom: 0.375rem;
+	color: var(--title);
+}
+
+.details {
+	margin-bottom: 0.25rem;
+	display: flex;
+	column-gap: 0.25rem;
+	align-items: center;
+}
+
+.date,
+.description {
+	font: inherit;
+}
+
+.date {
+	color: var(--title);
+	min-width: max-content;
+}
+
+.description,
+.directory {
+	color: var(--subtitle);
+}
+
+.title,
+.description,
+.directory {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
+.location {
+	display: flex;
+	column-gap: 0.25rem;
+	align-items: center;
+}
+
+.folder {
+	width: 0.875rem;
+	height: 0.875rem;
+	min-width: 0.875rem;
+	min-height: 0.875rem;
+	fill: var(--icon);
+}
+
+.img {
+	--img-size: 3rem;
+
+	width: var(--img-size);
+	height: var(--img-size);
+	min-height: var(--img-size);
+	min-width: var(--img-size);
+	aspect-ratio: 1;
+	border-radius: 0.25rem;
+	border: 1px solid var(--divider);
+	align-self: center;
+}
+
+.active {
+	background-color: var(--accent);
+}
+
+.active .title,
+.active .date,
+.active .folder,
+.active .lock {
+	color: var(--neutral-9);
+	fill: var(--neutral-9);
+}
+
+.active .description,
+.active .directory {
+	color: var(--neutral-7);
+	opacity: 0.75;
+}
+
+.active .img {
+	border: 1px solid rgba(233, 236, 239, 0.25);
+}

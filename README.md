@@ -1,5 +1,5 @@
-# Next.js Boilerplate
-This boilerplate contains the base file structure used to make a complex NextJS application.
+# Notepad ✏️
+Apple Notepad recreation on the web.
 
 # Packages
 This projects starts out with some useful packages that might come in handy when developing any project.

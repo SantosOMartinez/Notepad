@@ -1,25 +1,61 @@
-/* [Theme Name] (Default) */
+/* Light (Default) */
 :root {
-	/* Variables go here... */
-	/*
-		Example:
-			--bg-color: #fffff;
-	*/
+	--bg: var(--neutral-10);
+	--accent: var(--primary-1);
+	--editor: var(--neutral-10);
+	--view: var(--neutral-10);
+	--toolbar: var(--neutral-10);
+	--text: var(--neutral-3);
+	--title: var(--neutral-2);
+	--subtitle: var(--neutral-5);
+	--icon: var(--neutral-5);
+	--hover-bg: var(--neutral-9);
+	--hover-icon: var(--neutral-3);
+	--hover-bg-select: var(--neutral-8);
+	--divider: var(--neutral-8);
+	--glass: rgba(246, 248, 249, 0.8);
+	--glass-opaque: #f6f8f9;
+	--border: var(--neutral-7);
+	--shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
-/* Theme 1 */
-[data-theme="theme-1"] {
-	/* Variables go here... */
+/* Light */
+[data-theme="light"] {
+	--bg: var(--neutral-10);
+	--accent: var(--primary-1);
+	--editor: var(--neutral-10);
+	--toolbar: var(--neutral-10);
+	--text: var(--neutral-3);
+	--title: var(--neutral-2);
+	--subtitle: var(--neutral-5);
+	--icon: var(--neutral-5);
+	--hover-bg: var(--neutral-9);
+	--hover-icon: var(--neutral-3);
+	--hover-bg-select: var(--neutral-8);
+	--divider: var(--neutral-8);
+	--glass: rgba(246, 248, 249, 0.8);
+	--glass-opaque: #f6f8f9;
+	--border: var(--neutral-7);
+	--shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
-/* Theme 2*/
-[data-theme="theme-2"] {
-	/* Variables go here... */
+/* Dark */
+[data-theme="dark"] {
+	--bg: var(--neutral-2);
+	--accent: var(--primary-1);
+	--editor: var(--neutral-1);
+	--toolbar: var(--neutral-2);
+	--text: var(--neutral-8);
+	--title: var(--neutral-9);
+	--subtitle: var(--neutral-6);
+	--icon: var(--neutral-6);
+	--hover-bg: rgba(var(--neutral-3), 0.25);
+	--hover-icon: var(--neutral-7);
+	--hover-bg-select: var(--neutral-2);
+	--divider: rgba(var(--neutral-3), 0.25);
+	--glass: rgba(35, 30, 41, 0.8);
+	--glass-opaque: rgb(35, 30, 41);
+	--border: var(--neutral-4);
+	--shadow: 0 10px 15px -3px rgb(0 0 0 / 0.25),
+		0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
-
-/* Theme 3 */
-[data-theme="theme-3"] {
-	/* Variables go here... */
-}
-
-/* etc... */

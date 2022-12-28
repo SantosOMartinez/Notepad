@@ -1,37 +1,94 @@
 /* Default typography goes here. */
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+input,
+p,
+a {
+	font-family: "Inter";
+}
+
 h1 {
-	/* Type rules go here... */
+	font-style: normal;
+	font-weight: 600;
+	font-size: 64px;
+	line-height: 64px;
+	/* identical to box height, or 100% */
+	letter-spacing: -0.03em;
 }
 
 h2 {
-	/* Type rules go here... */
+	font-style: normal;
+	font-weight: 600;
+	font-size: 48px;
+	line-height: 48px;
+	/* identical to box height, or 100% */
+	letter-spacing: -0.03em;
 }
 
 h3 {
-	/* Type rules go here... */
+	font-style: normal;
+	font-weight: 600;
+	font-size: 40px;
+	line-height: 48px;
+	/* identical to box height, or 120% */
+	letter-spacing: -0.02em;
 }
 
 h4 {
-	/* Type rules go here... */
+	font-style: normal;
+	font-weight: 600;
+	font-size: 32px;
+	line-height: 40px;
+	/* identical to box height, or 125% */
+	letter-spacing: -0.03em;
 }
 
 h5 {
-	/* Type rules go here... */
+	font-style: normal;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 32px;
+	/* identical to box height, or 160% */
+	letter-spacing: -0.02em;
 }
 
 h6 {
-	/* Type rules go here... */
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 24px;
+	/* identical to box height, or 133% */
+	letter-spacing: -0.01em;
 }
 
-strong {
-	/* Type rules go here... */
+input,
+p {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 14px;
+	/* identical to box height, or 100% */
+	letter-spacing: -0.015em;
 }
 
 p {
-	/* Type rules go here... */
+	margin: 0;
+}
+
+p strong {
+	line-height: 16px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
 }
 
 a {
-	/* Type rules go here... */
+	cursor: pointer;
+	color: var(--accent);
+	text-decoration: underline;
 }

@@ -1,8 +1,8 @@
 {
-	"name": "nextjs-boilerplate",
-	"displayName": "Next.js Boilerplate",
-	"version": "1.0.0",
-	"description": "Boilerplate NextJS app containing the basic file structures.",
+	"name": "notepad",
+	"displayName": "Notepad",
+	"version": "0.0.0",
+	"description": "Apple Notepad recreation on the web.",
 	"main": "index.js",
 	"scripts": {
 		"dev": "next dev",
@@ -20,17 +20,28 @@
 	},
 	"license": "UNLICENSED",
 	"dependencies": {
+		"@lexical/react": "^0.5.0",
 		"@next/bundle-analyzer": "^12.3.0",
+		"ariakit": "^2.0.0-next.41",
 		"classnames": "^2.3.1",
+		"idb": "^7.1.0",
+		"image-extensions": "^1.1.0",
+		"is-hotkey": "^0.2.0",
+		"is-url": "^1.2.4",
+		"lexical": "^0.5.0",
 		"next": "^12.3.0",
 		"normalize.css": "^8.0.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"recoil": "^0.7.5"
+		"react-split-grid": "^1.0.4",
+		"recoil": "^0.7.5",
+		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^13.4.0",
+		"@types/is-hotkey": "^0.1.7",
+		"@types/is-url": "^1.2.30",
 		"@types/node": "18.7.16",
 		"@types/react": "18.0.18",
 		"jest": "^29.0.3",

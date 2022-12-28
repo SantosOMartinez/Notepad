@@ -1,0 +1,27 @@
+.multiselect {
+	display: flex;
+	border-radius: 0.25rem;
+	justify-content: center;
+	align-items: center;
+	transition: var(--transition);
+	height: fit-content;
+}
+
+.multiselect:hover {
+	background-color: var(--hover-bg);
+	transition: var(--transition);
+}
+
+.multiselect > button:hover svg {
+	fill: var(--icon);
+}
+
+.selected,
+.multiselect:hover .selected {
+	background-color: var(--hover-bg-select);
+}
+
+.selected > svg,
+.multiselect:hover .selected > svg {
+	fill: var(--hover-icon);
+}

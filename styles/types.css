@@ -1,16 +1,22 @@
 /* Typography classes go here. Used to modify default styles. */
 
 /* Change the names of these classes to match your typography. */
-.type-1 {
-	/* Type rules go here... */
+.caption {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 11px;
+	line-height: 12px;
+	/* identical to box height, or 100% */
+	letter-spacing: -0.01em;
 }
 
-.type-2 {
-	/* Type rules go here... */
+.caption-bold {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 11px;
+	line-height: 11px;
+	/* identical to box height, or 100% */
+	letter-spacing: -0.01em;
 }
-
-.type-3 {
-	/* Type rules go here... */
-}
-
-/* etc... */
